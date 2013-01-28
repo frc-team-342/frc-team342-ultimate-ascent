@@ -17,4 +17,6 @@ public class RobotMap {
     public static final int JOYSTICK_DRIVE_CONTROL = 1;
     //Default position in the CRIO for the side car
     public static final int DEFAULT_ANNALOG_SLOT = 1;
+    //driverstation slidder to set speed
+    public static final int RAMMING_SPEED = 1;
 }
