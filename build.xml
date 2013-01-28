@@ -1,6 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><project basedir="." default="help" name="Team 342 Ultimate Ascent Robot">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><project basedir="." default="help" name="RobotTemplate">
+
+<!-- You may freely edit this file. See commented blocks below for -->
+<!-- some examples of how to customize the build. -->
+
     <!--
-   et
+    
     The master build file lives at: ${sunspot.home}/build.xml.
 
     If you do not have a Sun SPOT properties file for some reason,

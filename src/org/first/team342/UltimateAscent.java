@@ -4,15 +4,11 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-
 package org.first.team342;
-
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import org.first.team342.commands.CommandBase;
-import org.first.team342.commands.ExampleCommand;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -23,7 +19,8 @@ import org.first.team342.commands.ExampleCommand;
  */
 public class UltimateAscent extends IterativeRobot {
 
-    Command autonomousCommand;
+    private Command autonomousCommand;
+    private Command joystickCommand;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -31,10 +28,7 @@ public class UltimateAscent extends IterativeRobot {
      */
     public void robotInit() {
         // instantiate the command used for the autonomous period
-        autonomousCommand = new ExampleCommand();
-
-        // Initialize all subsystems
-        CommandBase.init();
+        //autonomousCommand = new ExampleCommand();
     }
 
     public void autonomousInit() {
@@ -50,7 +44,7 @@ public class UltimateAscent extends IterativeRobot {
     }
 
     public void teleopInit() {
-	// This makes sure that the autonomous stops running when
+        // This makes sure that the autonomous stops running when
         // teleop starts running. If you want the autonomous to 
         // continue until interrupted by another command, remove
         // this line or comment it out.
