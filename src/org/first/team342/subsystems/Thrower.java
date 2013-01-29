@@ -20,7 +20,6 @@ public class Thrower extends Subsystem {
         this.front = RobotUtilities.initializeCANJaguar(RobotMap.CAN_DEVICE_THROWER_BACK);
     }
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
     }
+    
 }
