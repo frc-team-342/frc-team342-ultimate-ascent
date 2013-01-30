@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.networktables.NetworkTableKeyNotDefined;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.first.team342.Controller;
 import org.first.team342.RobotMap;
 import org.first.team342.RobotUtilities;
@@ -46,7 +48,6 @@ public class Drive extends Subsystem {
     }
 
     public void driveWithJoystick(Controller joystick) {
-        
         this.robotDrive.tankDrive(joystick.getLeftY() * -1, joystick.getRightY() * -1);
     }
     /*
@@ -61,4 +62,7 @@ public class Drive extends Subsystem {
     public void turn(double speed){
         this.robotDrive.tankDrive(speed, -speed);
     }
+    public void CenterOnTarget(){
+    }
+    
 }
