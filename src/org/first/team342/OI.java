@@ -1,8 +1,6 @@
 package org.first.team342;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.Button;
-import edu.wpi.first.wpilibj.buttons.DigitalIOButton;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -14,6 +12,11 @@ public class OI {
     private static final OI INSTANCE = new OI();
 
     private OI() {
+        driveController = new Controller(RobotMap.JOYSTICK_DRIVE_CONTROL);
+        //JoystickButton targeting = new JoystickButton(driveController, 4);
+        
+        //targeting.whileHeld(new CenterRobotCommand());
+        //targeting.whenReleased(new DriveWithJoystick());
     }
 
     public static OI getInstance() {

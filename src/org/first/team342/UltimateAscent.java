@@ -9,6 +9,7 @@ package org.first.team342;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import org.first.team342.commands.drive.DriveWithJoystick;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -27,13 +28,12 @@ public class UltimateAscent extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
-        // instantiate the command used for the autonomous period
-        //autonomousCommand = new ExampleCommand();
+        joystickCommand = new DriveWithJoystick();
     }
 
     public void autonomousInit() {
         // schedule the autonomous command (example)
-        autonomousCommand.start();
+        //autonomousCommand.start();
     }
 
     /**
@@ -44,11 +44,7 @@ public class UltimateAscent extends IterativeRobot {
     }
 
     public void teleopInit() {
-        // This makes sure that the autonomous stops running when
-        // teleop starts running. If you want the autonomous to 
-        // continue until interrupted by another command, remove
-        // this line or comment it out.
-        autonomousCommand.cancel();
+        joystickCommand.start();
     }
 
     /**

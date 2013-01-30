@@ -5,3 +5,4 @@ target
 .settings
 .classpath
 /RobotTemplate/nbproject/private/
+/build/

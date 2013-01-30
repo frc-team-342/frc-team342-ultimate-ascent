@@ -4,33 +4,30 @@
  */
 package org.first.team342.commands.drive;
 
-import edu.wpi.first.wpilibj.Joystick;
-import org.first.team342.OI;
+import edu.wpi.first.wpilibj.DriverStation;
+import org.first.team342.RobotMap;
 import org.first.team342.commands.CommandBase;
 import org.first.team342.subsystems.Drive;
 
 /**
  *
- * @author FIRST Team 342
+ * @author Team 342
  */
-public class DriveWithJoystick extends CommandBase {
+public class CenterRobotCommand extends CommandBase {
     private Drive drive = Drive.getInstance();
-    private Joystick joystick;
+    private DriverStation station;
     
-    public DriveWithJoystick() {
+    public CenterRobotCommand() {
         requires(drive);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        OI oi = OI.getInstance();
-        this.joystick = oi.getDriveController();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        //this.drive.driveWithJoystick(joystick);
-        this.drive.driveWithJoystick(this.joystick);
+        this.drive.turn((station.getAnalogIn(RobotMap.AUTONOMOUS_CENTER)-2.5)/2.5);
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -33,6 +33,7 @@ public class Drive extends Subsystem {
         this.leftRear = RobotUtilities.initializeCANJaguar(RobotMap.CAN_DEVICE_LEFT_REAR_DRIVE_MOTOR);
         this.rightRear = RobotUtilities.initializeCANJaguar(RobotMap.CAN_DEVICE_RIGHT_REAR_DRIVE_MOTOR);
         this.robotDrive = new RobotDrive(leftFront, leftRear, rightFront, rightRear);
+        this.robotDrive.setSafetyEnabled(false);
     }
 
     public static Drive getInstance() {
@@ -44,6 +45,7 @@ public class Drive extends Subsystem {
     }
 
     public void driveWithJoystick(Joystick joystick) {
+        
         this.robotDrive.tankDrive(joystick.getY() * -1, joystick.getRawAxis(4) * -1);
     }
     /*
@@ -54,5 +56,8 @@ public class Drive extends Subsystem {
         double leftStick = joystick.getY() * -(this.station.getAnalogIn(RobotMap.RAMMING_SPEED)/5);
         double rightStick = joystick.getRawAxis(4) * -(this.station.getAnalogIn(RobotMap.RAMMING_SPEED)/5);
         this.robotDrive.tankDrive(leftStick,rightStick);
+    }
+    public void turn(double speed){
+        this.robotDrive.tankDrive(speed, -speed);
     }
 }
