@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import org.first.team342.Controller;
 import org.first.team342.RobotMap;
 import org.first.team342.RobotUtilities;
 import org.first.team342.commands.drive.DriveWithJoystick;
@@ -44,9 +45,9 @@ public class Drive extends Subsystem {
         this.setDefaultCommand(new DriveWithJoystick());
     }
 
-    public void driveWithJoystick(Joystick joystick) {
+    public void driveWithJoystick(Controller joystick) {
         
-        this.robotDrive.tankDrive(joystick.getY() * -1, joystick.getRawAxis(4) * -1);
+        this.robotDrive.tankDrive(joystick.getLeftY() * -1, joystick.getRightY() * -1);
     }
     /*
      * drive with speed governing

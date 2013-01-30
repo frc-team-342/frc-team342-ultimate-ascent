@@ -5,6 +5,7 @@
 package org.first.team342.commands.drive;
 
 import edu.wpi.first.wpilibj.Joystick;
+import org.first.team342.Controller;
 import org.first.team342.OI;
 import org.first.team342.commands.CommandBase;
 import org.first.team342.subsystems.Drive;
@@ -15,7 +16,7 @@ import org.first.team342.subsystems.Drive;
  */
 public class DriveWithJoystick extends CommandBase {
     private Drive drive = Drive.getInstance();
-    private Joystick joystick;
+    private Controller joystick;
     
     public DriveWithJoystick() {
         requires(drive);
