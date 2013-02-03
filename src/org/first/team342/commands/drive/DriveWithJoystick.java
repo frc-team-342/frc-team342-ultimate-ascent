@@ -8,14 +8,14 @@ import edu.wpi.first.wpilibj.Joystick;
 import org.first.team342.Controller;
 import org.first.team342.OI;
 import org.first.team342.commands.CommandBase;
-import org.first.team342.subsystems.Drive;
+import org.first.team342.subsystems.DriveCAN;
 
 /**
  *
  * @author FIRST Team 342
  */
 public class DriveWithJoystick extends CommandBase {
-    private Drive drive = Drive.getInstance();
+    private DriveCAN drive = DriveCAN.getInstance();
     private Controller joystick;
     
     public DriveWithJoystick() {

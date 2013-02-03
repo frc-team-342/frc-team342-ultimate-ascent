@@ -5,29 +5,43 @@
 package org.first.team342.commands.drive;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.first.team342.RobotMap;
+import org.first.team342.RobotUtilities;
 import org.first.team342.commands.CommandBase;
-import org.first.team342.subsystems.Drive;
+import org.first.team342.subsystems.DriveCAN;
 
 /**
  *
  * @author Team 342
  */
 public class CenterRobotCommand extends CommandBase {
-    private Drive drive = Drive.getInstance();
+    private int lastPosition;
+    private Timer time;
+    private DriveCAN drive = DriveCAN.getInstance();
     private DriverStation station;
     
     public CenterRobotCommand() {
+        this.lastPosition = 0;
+        this.time = new Timer();
         requires(drive);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        this.time.reset();
+        this.time.start();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        this.drive.turn((station.getAnalogIn(RobotMap.AUTONOMOUS_CENTER)-2.5)/2.5);
+        int currentPosition = RobotUtilities.getIntSmartDashboard("position");
+        double delta = ((this.lastPosition - currentPosition)/this.time.get());
+        double speed = ((RobotMap.DRIVE_CENTERING_CONASTANT_PIXEL*currentPosition)+
+                        (delta*RobotMap.DRIVE_CENTERING_CONASTANT_DELTA));
+        this.drive.turn(speed);
+        this.time.reset();
     }
 
     // Make this return true when this Command no longer needs to run execute()

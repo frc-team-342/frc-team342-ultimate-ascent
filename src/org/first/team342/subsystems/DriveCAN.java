@@ -5,12 +5,11 @@
 package org.first.team342.subsystems;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.networktables.NetworkTableKeyNotDefined;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.tables.TableKeyNotDefinedException;
 import org.first.team342.Controller;
 import org.first.team342.RobotMap;
 import org.first.team342.RobotUtilities;
@@ -20,9 +19,9 @@ import org.first.team342.commands.drive.DriveWithJoystick;
  *
  * @author Team 342
  */
-public class Drive extends Subsystem {
+public class DriveCAN extends Subsystem {
 
-    private static final Drive INSTANCE = new Drive();
+    private static final DriveCAN INSTANCE = new DriveCAN();
     private SpeedController leftFront;
     private SpeedController rightFront;
     private SpeedController leftRear;
@@ -30,7 +29,7 @@ public class Drive extends Subsystem {
     private RobotDrive robotDrive;
     private DriverStation station;
 
-    public Drive() {
+    private DriveCAN() {
         this.leftFront = RobotUtilities.initializeCANJaguar(RobotMap.CAN_DEVICE_LEFT_FRONT_DRIVE_MOTOR);
         this.rightFront = RobotUtilities.initializeCANJaguar(RobotMap.CAN_DEVICE_RIGHT_FRONT_DRIVE_MOTOR);
         this.leftRear = RobotUtilities.initializeCANJaguar(RobotMap.CAN_DEVICE_LEFT_REAR_DRIVE_MOTOR);
@@ -39,7 +38,7 @@ public class Drive extends Subsystem {
         this.robotDrive.setSafetyEnabled(false);
     }
 
-    public static Drive getInstance() {
+    public static DriveCAN getInstance() {
         return INSTANCE;
     }
 
@@ -49,20 +48,22 @@ public class Drive extends Subsystem {
 
     public void driveWithJoystick(Controller joystick) {
         this.robotDrive.tankDrive(joystick.getLeftY() * -1, joystick.getRightY() * -1);
+        try {
+            System.out.println("CANMode = "+ SmartDashboard.getBoolean("CANMode"));
+        } catch (TableKeyNotDefinedException ex) {
+            System.out.println("No CANMode value");
+        }
     }
     /*
      * drive with speed governing
      */
 
-    public void rammingSpeed(Joystick joystick) {
-        double leftStick = joystick.getY() * -(this.station.getAnalogIn(RobotMap.RAMMING_SPEED)/5);
-        double rightStick = joystick.getRawAxis(4) * -(this.station.getAnalogIn(RobotMap.RAMMING_SPEED)/5);
+    public void rammingSpeed(Controller joystick) {
+        double leftStick = joystick.getLeftY() * -(this.station.getAnalogIn(RobotMap.RAMMING_SPEED)/5);
+        double rightStick = joystick.getRightY() * -(this.station.getAnalogIn(RobotMap.RAMMING_SPEED)/5);
         this.robotDrive.tankDrive(leftStick,rightStick);
     }
     public void turn(double speed){
         this.robotDrive.tankDrive(speed, -speed);
     }
-    public void CenterOnTarget(){
-    }
-    
 }
