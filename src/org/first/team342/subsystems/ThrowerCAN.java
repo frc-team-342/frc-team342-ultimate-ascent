@@ -87,11 +87,11 @@ public class ThrowerCAN extends ThrowerBase {
     public void throwReverse(double value) {
         try {
             if (this.front != null) {
-                this.front.setX(value);
+                this.front.setX(-value);
             }
 
             if (this.back != null) {
-                this.back.setX(value);
+                this.back.setX(-value);
             }
         } catch (CANTimeoutException ex) {
             ex.printStackTrace();

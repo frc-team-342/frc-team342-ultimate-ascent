@@ -20,7 +20,7 @@
 package org.first.team342.subsystems;
 
 import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.first.team342.RobotMap;
@@ -38,7 +38,7 @@ public class Conveyor extends Subsystem {
     private SpeedController conveyorMotor;
     
     private Conveyor() {
-        this.conveyorMotor = new Talon(RobotMap.PWM_CHANNEL_CONVEYOR);
+        this.conveyorMotor = new Victor(RobotMap.PWM_CHANNEL_CONVEYOR);
         isOn = false;
     }
     

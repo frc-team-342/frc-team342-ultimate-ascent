@@ -16,6 +16,7 @@ public class ElevatorRaiseCommand extends CommandBase {
     private Elevator elevator = Elevator.getInstance();
     
     public ElevatorRaiseCommand() {
+        requires(elevator);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }

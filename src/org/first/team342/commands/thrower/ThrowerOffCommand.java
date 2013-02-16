@@ -2,43 +2,37 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.first.team342.commands.drive;
+package org.first.team342.commands.thrower;
 
+import org.first.team342.abstractions.ThrowerBase;
 import org.first.team342.commands.CommandBase;
-import edu.wpi.first.wpilibj.Timer;
-import org.first.team342.abstractions.DriveBase;
-import org.first.team342.subsystems.DriveCAN;
+import org.first.team342.subsystems.ThrowerCAN;
 
 /**
  *
  * @author Charlie
  */
-public class DriveForward extends CommandBase {
-    DriveBase drive = DriveCAN.getInstance();
-    Timer timer;
+public class ThrowerOffCommand extends CommandBase {
+    private ThrowerBase thrower = ThrowerCAN.getInstance();
     
-    public DriveForward(double time) {
+    public ThrowerOffCommand() {
+        requires(thrower);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        timer.start();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        drive.forward(1.0);
+        thrower.stop();
     }
 
     // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished(double time) {
-        if(timer.get() > time){
-            return true;
-        }else{
-            return false;
-        }
+    protected boolean isFinished() {
+        return true;
     }
 
     // Called once after isFinished returns true

@@ -28,10 +28,7 @@ import org.first.team342.commands.elevator.ElevatorLowerCommand;
 import org.first.team342.commands.elevator.ElevatorRaiseCommand;
 import org.first.team342.commands.elevator.ElevatorStopCommand;
 import org.first.team342.commands.lights.*;
-import org.first.team342.commands.thrower.AimMotorStop;
-import org.first.team342.commands.thrower.MoveToAngleCommand;
-import org.first.team342.commands.thrower.SimpleRaiseCommand;
-import org.first.team342.commands.thrower.pushCommand;
+import org.first.team342.commands.thrower.*;
 
 public class OI {
 
@@ -44,11 +41,12 @@ public class OI {
         JoystickButton elevatorRaise = new JoystickButton(driveController, 1);
         JoystickButton elevatorLower = new JoystickButton(driveController, 2);
         JoystickButton conveyorOn = new JoystickButton(driveController, 3);
-        JoystickButton center = new JoystickButton(driveController, 10);
-        JoystickButton flash = new JoystickButton(driveController, 4);
-        JoystickButton redOn = new JoystickButton(driveController, 5);
-        JoystickButton blueOn = new JoystickButton(driveController, 6);
+//        JoystickButton center = new JoystickButton(driveController, 10);
+//        JoystickButton flash = new JoystickButton(driveController, 4);
+//        JoystickButton redOn = new JoystickButton(driveController, 5);
+//        JoystickButton blueOn = new JoystickButton(driveController, 6);
 //        JoystickButton bothOn = new JoystickButton(driveController, 7);
+        JoystickButton simpleShootForward = new JoystickButton(driveController, 6);
         JoystickButton throwerRaiseSimple = new JoystickButton(driveController, 7);
         JoystickButton pushDisc = new JoystickButton(driveController, 8);
         JoystickButton moveToAngle = new JoystickButton(driveController, 9);
@@ -62,17 +60,20 @@ public class OI {
         conveyorOn.whenPressed(new ConveyorOnCommand());
         conveyorOn.whenReleased(new ConveyorStopCommand());
         
-        center.whileHeld( new CenterRobotCommand());
-        center.whenReleased(new DriveWithJoystick());
+//        center.whileHeld( new CenterRobotCommand());
+//        center.whenReleased(new DriveWithJoystick());
+//        
+//        flash.whileHeld(new FlashAlternatingCommand());
+//        flash.whenReleased(new BothLightsOffCommand());
+//        
+//        redOn.whenPressed(new RedLightOnCommand());
+//        redOn.whenReleased(new BothLightsOffCommand());
+//        
+//        blueOn.whenPressed(new BlueLightOnCommand());
+//        blueOn.whenReleased(new BothLightsOffCommand());
         
-        flash.whileHeld(new FlashAlternatingCommand());
-        flash.whenReleased(new BothLightsOffCommand());
-        
-        redOn.whenPressed(new RedLightOnCommand());
-        redOn.whenReleased(new BothLightsOffCommand());
-        
-        blueOn.whenPressed(new BlueLightOnCommand());
-        blueOn.whenReleased(new BothLightsOffCommand());
+        simpleShootForward.whenPressed(new SimpleShootForwardCommand());
+        simpleShootForward.whenReleased(new ThrowerOffCommand());
         
         throwerRaiseSimple.whenPressed(new SimpleRaiseCommand());
         throwerRaiseSimple.whenReleased(new AimMotorStop());
