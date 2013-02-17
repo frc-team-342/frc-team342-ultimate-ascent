@@ -4,7 +4,6 @@
  */
 package org.first.team342.commands.thrower;
 
-import org.first.team342.abstractions.Thrower;
 import org.first.team342.commands.CommandBase;
 import org.first.team342.subsystems.ThrowerCAN;
 import org.first.team342.abstractions.ThrowerBase;
@@ -13,9 +12,10 @@ import org.first.team342.abstractions.ThrowerBase;
  * @author Charlie
  */
 public class AimMotorStop extends CommandBase {
-    Thrower thrower = ThrowerCAN.getInstance();
+    private ThrowerBase thrower = ThrowerCAN.getInstance();
     
     public AimMotorStop() {
+        requires(thrower);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -26,7 +26,8 @@ public class AimMotorStop extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        thrower.aimMotorStop();
+        thrower.aimMotorStop(); 
+
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -42,4 +43,4 @@ public class AimMotorStop extends CommandBase {
     // subsystems is scheduled to run
     protected void interrupted() {
     }
-}
+}   

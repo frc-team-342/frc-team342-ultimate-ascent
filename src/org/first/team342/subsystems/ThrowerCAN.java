@@ -45,13 +45,13 @@ public class ThrowerCAN extends ThrowerBase {
 
         try {
             if (this.front != null) {
-                this.front.changeControlMode(CANJaguar.ControlMode.kSpeed);
+                this.front.changeControlMode(CANJaguar.ControlMode.kPercentVbus);
                 this.front.setSpeedReference(CANJaguar.SpeedReference.kEncoder);
                 this.front.configEncoderCodesPerRev(360);
                 this.front.enableControl();
             }
             if (this.back != null) {
-                this.back.changeControlMode(CANJaguar.ControlMode.kSpeed);
+                this.back.changeControlMode(CANJaguar.ControlMode.kPercentVbus);
                 this.back.setSpeedReference(CANJaguar.SpeedReference.kEncoder);
                 this.back.configEncoderCodesPerRev(360);
                 this.back.enableControl();
@@ -73,11 +73,11 @@ public class ThrowerCAN extends ThrowerBase {
     public void throwForward(double value) {
          try {
             if (this.front != null) {
-                this.front.setX(value);
+                this.front.setX(-value);
             }
 
             if (this.back != null) {
-                this.back.setX(value);
+                this.back.setX(-value);
             }
         } catch (CANTimeoutException ex) {
             ex.printStackTrace();
@@ -87,11 +87,11 @@ public class ThrowerCAN extends ThrowerBase {
     public void throwReverse(double value) {
         try {
             if (this.front != null) {
-                this.front.setX(-value);
+                this.front.setX(value);
             }
 
             if (this.back != null) {
-                this.back.setX(-value);
+                this.back.setX(value);
             }
         } catch (CANTimeoutException ex) {
             ex.printStackTrace();

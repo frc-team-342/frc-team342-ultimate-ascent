@@ -51,24 +51,29 @@ public class Elevator extends Subsystem {
 
     public void raise(double speed) {
         boolean atTop = top.get();
-        if(!atTop){
+//        if (!atTop) {
+//            this.elevatorMotor.set(speed);
+//            System.out.println("Elevator GOing up");
+//        } else {
+//            this.elevatorMotor.set(0);
+//            System.out.println("Top Limit Switch Tripped");
+//        }
         this.elevatorMotor.set(speed);
-        }else{
-            this.elevatorMotor.set(0);
-        }
-    }    
-    
+    }
+
     public void lower(double speed) {
         boolean atBottom = bottom.get();
-        if(!atBottom){
+//        if (!atBottom) {
+//            this.elevatorMotor.set(-speed);
+//            System.out.println("Elevator GOing down");
+//        } else {
+//            this.elevatorMotor.set(0);
+//            System.out.println("Bottom Limit Switch tripped");
+//        }
         this.elevatorMotor.set(-speed);
-        }else{
-            this.elevatorMotor.set(0);
-        }
     }
-    
+
     public void stop() {
         this.elevatorMotor.set(0);
     }
-
 }

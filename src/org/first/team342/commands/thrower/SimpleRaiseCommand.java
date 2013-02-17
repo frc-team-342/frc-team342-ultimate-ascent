@@ -4,7 +4,7 @@
  */
 package org.first.team342.commands.thrower;
 
-import org.first.team342.abstractions.Thrower;
+import org.first.team342.abstractions.ThrowerBase;
 import org.first.team342.commands.CommandBase;
 import org.first.team342.subsystems.ThrowerCAN;
 
@@ -13,9 +13,10 @@ import org.first.team342.subsystems.ThrowerCAN;
  * @author Charlie
  */
 public class SimpleRaiseCommand extends CommandBase {
-    Thrower thrower = ThrowerCAN.getInstance();
+    private ThrowerBase thrower = ThrowerCAN.getInstance();
     
     public SimpleRaiseCommand() {
+        requires(thrower);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -26,7 +27,8 @@ public class SimpleRaiseCommand extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        thrower.simpleRaise(1.0);
+        thrower.simpleRaise(0.6);   //JH-lowered motor power on raise
+        //thrower.simpleRaise(0.6 * (30 - thrower.convertAngle()));
     }
 
     // Make this return true when this Command no longer needs to run execute()

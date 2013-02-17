@@ -51,7 +51,7 @@ public interface Thrower {
 
     public void push(double value);
 
-    public void pushMotorOn(double value);
+    public void pushMotorSet(double value);
     
     public void aimMotorStop();
 }

@@ -4,6 +4,7 @@
  */
 package org.first.team342.commands.thrower;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import org.first.team342.abstractions.ThrowerBase;
 import org.first.team342.commands.CommandBase;
 import org.first.team342.subsystems.ThrowerCAN;
@@ -14,6 +15,7 @@ import org.first.team342.subsystems.ThrowerCAN;
  */
 public class SimpleShootForwardCommand extends CommandBase {
     private ThrowerBase thrower = ThrowerCAN.getInstance();
+    private DriverStation driver = DriverStation.getInstance();
     
     public SimpleShootForwardCommand() {
         requires(thrower);
@@ -27,7 +29,7 @@ public class SimpleShootForwardCommand extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        this.thrower.throwForward(100.0);
+        this.thrower.throwForward(driver.getAnalogIn(4)/5);
     }
 
     // Make this return true when this Command no longer needs to run execute()

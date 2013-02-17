@@ -19,11 +19,11 @@
  */
 package org.first.team342.subsystems;
 
+import edu.wpi.first.wpilibj.CANJaguar;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.tables.TableKeyNotDefinedException;
+import edu.wpi.first.wpilibj.can.CANTimeoutException;
 import org.first.team342.Controller;
 import org.first.team342.RobotMap;
 import org.first.team342.RobotUtilities;
@@ -37,10 +37,10 @@ import org.first.team342.commands.drive.DriveWithJoystick;
 public class DriveCAN extends DriveBase {
 
     private static final DriveBase INSTANCE = new DriveCAN();
-    private SpeedController leftFront;
-    private SpeedController rightFront;
-    private SpeedController leftRear;
-    private SpeedController rightRear;
+    private CANJaguar leftFront;
+    private CANJaguar rightFront;
+    private CANJaguar leftRear;
+    private CANJaguar rightRear;
     private RobotDrive robotDrive;
     private DriverStation station;
 
@@ -78,13 +78,27 @@ public class DriveCAN extends DriveBase {
     public void turn(double speed) {
         this.robotDrive.tankDrive(speed, -speed);
     }
-    // TO DO MAKE WORK, aka ADD DISTANCE 
+    /* TO DO MAKE WORK, aka add startX(distance*k)
+     * k = constant value 
+     * add for all motors
+     */
+   
+
     public void forward(double speed, double distance) {
-        this.forward(speed);
+        try {
+            this.leftFront.changeControlMode(CANJaguar.ControlMode.kPosition);
+            this.leftRear.changeControlMode(CANJaguar.ControlMode.kPosition);
+            this.rightFront.changeControlMode(CANJaguar.ControlMode.kPosition);
+            this.leftFront.changeControlMode(CANJaguar.ControlMode.kPosition);
+        } catch (CANTimeoutException ex) {
+            ex.printStackTrace();
+        }
+        
+        
     }
     // TO DO MAKE WORK, aka ADD DISTANCE 
+
     public void reverse(double speed, double distance) {
-        this.reverse(speed);
     }
 
     public void forward(double speed) {

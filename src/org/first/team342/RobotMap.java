@@ -48,25 +48,26 @@ public class RobotMap {
     public static final int PWM_DEVICE_RIGHT_REAR_DRIVE_MOTOR = 4;
     //Thrower Constants
     public static final int GYRO_DEAD_ZONE = 3;
-    public static final int DIO_CHANNEL_THROWER_TOP = 1;
-    public static final int DIO_CHANNEL_THROWER_BOTTOM = 2;
-    public static final int DIO_CHANNEL_FIRE = 5;
-    public static final int ANALOG_CHANNEL_POTENTIOMETER = 2;
+    public static final double POTENTIOMETER_UNCERTAINTY = 1.0;
+    public static final int DIO_CHANNEL_THROWER_TOP = 11;
+    public static final int DIO_CHANNEL_THROWER_BOTTOM = 12;
+    public static final int DIO_CHANNEL_FIRE = 10;
+    public static final int ANALOG_CHANNEL_POTENTIOMETER = 3;
     //thrower motors
     public static final int CAN_DEVICE_THROWER_FRONT = 5;
     public static final int CAN_DEVICE_THROWER_BACK = 6;
     public static final int PWM_DEVICE_THROWER_FRONT = 5;
     public static final int PWM_DEVICE_THROWER_BACK = 6;    
-    public static final int PWM_CHANNEL_AIM = 8;
-    public static final int PWM_CHANNEL_FIRE = 10;
+    public static final int PWM_CHANNEL_AIM = 10;
+    public static final int PWM_CHANNEL_FIRE = 9;
     //Gyro constants
     public static final int ANALOG_CHANNEL_GYRO = 1;
     //conveyor
-    public static final int PWM_CHANNEL_CONVEYOR = 9;
+    public static final int PWM_CHANNEL_CONVEYOR = 7;
     //elevator 
-    public static final int PWM_CHANNEL_ELEVATOR = 7;
-    public static final int DIO_CHANNEL_ELEVATOR_TOP = 3;
-    public static final int DIO_CHANNEL_ELEVATOR_BOTTOM = 4;
+    public static final int PWM_CHANNEL_ELEVATOR = 8;
+    public static final int DIO_CHANNEL_ELEVATOR_TOP = 13;
+    public static final int DIO_CHANNEL_ELEVATOR_BOTTOM = 14;
     
     //LED color lights
     public static final int LIGHT_RED = 4;

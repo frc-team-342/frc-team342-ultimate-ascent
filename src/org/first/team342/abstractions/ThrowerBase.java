@@ -21,6 +21,7 @@ package org.first.team342.abstractions;
 
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.first.team342.RobotMap;
 
 /**
@@ -97,7 +98,7 @@ public abstract class ThrowerBase extends Subsystem implements Thrower {
 //        }
 //    }
     public void simpleRaise(double speed) {
-        if (this.top.get()) {
+        if (!this.top.get()) {
             this.aim.set(0.0);
         } else {
             this.aim.set(speed);
@@ -106,9 +107,9 @@ public abstract class ThrowerBase extends Subsystem implements Thrower {
 
     public void moveToAngle(double angle) {
         double uncertainty = 1.0;
-        if (this.top.get()) {
+        if (!this.top.get()) {
             this.aim.set(0.0);
-        } else if (this.bottom.get()) {
+        } else if (!this.bottom.get()) {
             this.aim.set(0.0);
         } else if (this.convertAngle(this.potentiometer.getVoltage()) + uncertainty < angle) {
             this.aim.set(.5);
@@ -121,7 +122,7 @@ public abstract class ThrowerBase extends Subsystem implements Thrower {
 
     //TODO: fix target angle settings
     public void increseAngle(double angle) {
-        if (this.top.get()) {
+        if (!this.top.get()) {
             this.aim.set(0.0);
         } else if (this.convertAngle(this.potentiometer.getVoltage()) < this.targetAngle) {
             this.aim.set(.5);
@@ -135,21 +136,30 @@ public abstract class ThrowerBase extends Subsystem implements Thrower {
     //TODO: fix target angle settings
     public void decreaseAngle(double angle) {
         this.targetAngle = (this.targetAngle - angle);
-        if (this.bottom.get()) {
+        if (!this.bottom.get()) {
             this.aim.set(0.0);
-        } else if (this.convertAngle(this.potentiometer.getValue()) - RobotMap.GYRO_DEAD_ZONE < this.targetAngle) {
+        } else if (this.convertAngle(this.potentiometer.getVoltage()) - RobotMap.GYRO_DEAD_ZONE < this.targetAngle) {
             this.aim.set(.5);
 //            this.targetAngle = this.gyro.getAngle();
-        } else if (this.convertAngle(this.potentiometer.getValue()) + RobotMap.GYRO_DEAD_ZONE < this.targetAngle) {
+        } else if (this.convertAngle(this.potentiometer.getVoltage()) + RobotMap.GYRO_DEAD_ZONE < this.targetAngle) {
             this.aim.set(-.5);
 //            this.targetAngle = this.gyro.getAngle();
         } else {
             this.aim.set(0.0);
         }
     }
+    
+    public void potentiometerTest(){
+        double rawValue = this.potentiometer.getVoltage();
+        System.out.println("Raw Value: " + rawValue);
+//        SmartDashboard.putNumber("Raw Value: ", rawValue);
+        double angleValue = this.convertAngle(rawValue);
+//        SmartDashboard.putNumber("Angle Value: ", angleValue);
+        System.out.println("Angle Value: " + angleValue);
+}
 
     public void simpleLower(double speed) {
-        if (this.bottom.get()) {
+        if (!this.bottom.get()) {
             this.aim.set(0.0);
 //            this.gyro.reset();
         } else {
@@ -161,13 +171,16 @@ public abstract class ThrowerBase extends Subsystem implements Thrower {
         this.aim.set(0.0);
     }
 
-    public void pushMotorOn(double value) {
-        pushMotor.set(1.0);
+    public void pushMotorSet(double value) {
+        pushMotor.set(value);
+        System.out.println("vex motor running");
     }
 
     public void push(double value) {
-        if (pushLimitSwitch.get() == false) {
+        if (pushLimitSwitch.get()) {
             pushMotor.set(value);
+        } else {
+            pushMotor.set(0.0);
         }
     }
 
@@ -176,8 +189,16 @@ public abstract class ThrowerBase extends Subsystem implements Thrower {
     }
 
     public double convertAngle(double input) {
-        double angleConstant = 1.0;
+        double angleConstant = 60.0;
         double angle = input * angleConstant;
+        return angle;
+    }
+    
+    //JH - Added method that gets pot volts on its own
+    
+    public double convertAngle(){
+        double angleConstant = 60.;//JH - Move with the other constants
+        double angle = angleConstant * this.potentiometer.getVoltage();
         return angle;
     }
 //    public void resetGyro() {
