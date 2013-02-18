@@ -28,7 +28,11 @@ package org.first.team342;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.first.team342.abstractions.Thrower;
+import org.first.team342.commands.autonomous.DriveAndShoot;
+import org.first.team342.commands.autonomous.ShootOnly;
 import org.first.team342.commands.drive.DriveWithJoystick;
 
 /**
@@ -42,13 +46,21 @@ public class UltimateAscent extends IterativeRobot {
 
     private Command autonomousCommand;
     private Command joystickCommand;
-
+    private Thrower thrower;
+    private SendableChooser autonomousChooser;
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
         joystickCommand = new DriveWithJoystick();
+        System.out.println("Autonomous mode chooser:");
+        this.autonomousChooser = new SendableChooser();
+        this.autonomousChooser.addDefault("Shoot Only, Default ", new ShootOnly());
+        this.autonomousChooser.addObject("Drive Forward and shoot ", new DriveAndShoot());
+        SmartDashboard.putData("Autonomous Mode", this.autonomousChooser);
+        System.out.println("Autonomous choice sent to Dashboard");
+
     }
 
     public void autonomousInit() {

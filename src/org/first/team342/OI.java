@@ -77,10 +77,10 @@ public class OI {
         simpleShootForward.whenPressed(new SimpleShootForwardCommand());
         simpleShootForward.whenReleased(new ThrowerOffCommand());
         
-        throwerRaiseSimple.whileHeld(new MoveToAngleCommand());
+        throwerRaiseSimple.whileHeld(new SimpleRaiseCommand());
         throwerRaiseSimple.whenReleased(new AimMotorStop());
         
-        throwerLowerSimple.whenPressed(new SimpleLowerCommand());
+        throwerLowerSimple.whileHeld(new SimpleLowerCommand());
         throwerLowerSimple.whenReleased(new AimMotorStop());
         
         pushDisc.whenPressed(new pushCommand());

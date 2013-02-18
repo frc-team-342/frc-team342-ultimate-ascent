@@ -2,21 +2,24 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.first.team342.commands.thrower;
+package org.first.team342.commands.drive;
 
-import org.first.team342.abstractions.ThrowerBase;
+import org.first.team342.abstractions.DriveBase;
 import org.first.team342.commands.CommandBase;
-import org.first.team342.subsystems.ThrowerCAN;
+import org.first.team342.subsystems.DriveCAN;
 
 /**
  *
  * @author Charlie
  */
-public class SimpleLowerCommand extends CommandBase {
-    private ThrowerBase thrower = ThrowerCAN.getInstance();
+public class TurnCommand extends CommandBase {
+    private DriveBase drive = DriveCAN.getInstance();
+    double speed;
+    double distance;
     
-    public SimpleLowerCommand() {
-        requires(thrower);
+    public TurnCommand(double speed, double distance) {
+        this.speed = speed;
+        this.distance = distance;
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -27,12 +30,12 @@ public class SimpleLowerCommand extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        thrower.simpleLower(1.0);
+        this.drive.turn(this.speed, this.distance);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true

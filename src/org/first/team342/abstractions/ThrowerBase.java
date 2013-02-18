@@ -99,10 +99,21 @@ public abstract class ThrowerBase extends Subsystem implements Thrower {
 //        }
 //    }
     public void simpleRaise(double speed) {
+        System.out.println("ThrowerAim Top switch is: " + this.top.get());
         if (!this.top.get()) {
             this.aim.set(0.0);
         } else {
             this.aim.set(speed);
+        }
+    }
+    
+    public void simpleLower(double speed) {
+        System.out.println("ThrowerAim Bottom switch is: " + this.bottom.get());
+        if (!this.bottom.get()) {
+            this.aim.set(0.0);
+//            this.gyro.reset();
+        } else {
+            this.aim.set(-speed);
         }
     }
     
@@ -162,15 +173,6 @@ public abstract class ThrowerBase extends Subsystem implements Thrower {
         double angleValue = this.convertAngle(rawValue);
 //        SmartDashboard.putNumber("Angle Value: ", angleValue);
         System.out.println("Angle Value: " + angleValue);
-    }
-    
-    public void simpleLower(double speed) {
-        if (!this.bottom.get()) {
-            this.aim.set(0.0);
-//            this.gyro.reset();
-        } else {
-            this.aim.set(-speed);
-        }
     }
     
     public void aimMotorStop() {

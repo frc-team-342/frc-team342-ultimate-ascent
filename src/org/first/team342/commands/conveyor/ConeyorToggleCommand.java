@@ -2,37 +2,42 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.first.team342.commands.thrower;
+package org.first.team342.commands.conveyor;
 
-import org.first.team342.abstractions.ThrowerBase;
 import org.first.team342.commands.CommandBase;
-import org.first.team342.subsystems.ThrowerCAN;
+import org.first.team342.subsystems.Conveyor;
 
 /**
  *
  * @author Charlie
  */
-public class SimpleLowerCommand extends CommandBase {
-    private ThrowerBase thrower = ThrowerCAN.getInstance();
+public class ConeyorToggleCommand extends CommandBase {
+    private Conveyor conveyor = Conveyor.getInstance();
+    private boolean conveyorStatus;
     
-    public SimpleLowerCommand() {
-        requires(thrower);
+    public ConeyorToggleCommand() {
+        requires(conveyor);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        conveyorStatus = conveyor.isConveyorOn();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        thrower.simpleLower(1.0);
+        if(conveyorStatus){
+            conveyor.turnConveyorOff();
+        } else {
+            conveyor.turnConveyorOn();
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true
