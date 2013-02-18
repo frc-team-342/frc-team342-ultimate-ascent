@@ -6,14 +6,14 @@ package org.first.team342.commands.thrower;
 
 import org.first.team342.abstractions.ThrowerBase;
 import org.first.team342.commands.CommandBase;
-import org.first.team342.subsystems.ThrowerPWM;
+import org.first.team342.subsystems.ThrowerCAN;
 
 /**
  *
  * @author Charlie
  */
 public class PotentiometerTestCommand extends CommandBase {
-    private ThrowerBase thrower = ThrowerPWM.getInstance();
+    private ThrowerBase thrower = ThrowerCAN.getInstance();
     
     public PotentiometerTestCommand() {
         requires(thrower);

@@ -31,12 +31,12 @@ public class pushCommand extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        thrower.push(-1.0);
+        thrower.pushMotorSet(-1.0);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
 //            return true;
 //        } else {
 //            return false;
@@ -45,7 +45,6 @@ public class pushCommand extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
-        thrower.pushMotorSet(0.0);
     }
 
     // Called when another command which requires one or more of the same

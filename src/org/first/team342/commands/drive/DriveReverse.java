@@ -16,8 +16,13 @@ import org.first.team342.subsystems.DriveCAN;
 public class DriveReverse extends CommandBase {
     DriveBase drive = DriveCAN.getInstance();
     Timer timer;
+    double speed;
+    double distance;
     
-    public DriveReverse(double time) {
+    public DriveReverse(double speed, double distance) {
+        requires(drive);
+        this.speed = speed;
+        this.distance = distance;
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -29,16 +34,17 @@ public class DriveReverse extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        drive.reverse(1.0);
+        drive.reverse(this.speed, this.distance);
     }
 
     // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished(double time) {
-        if(timer.get() > time){
-            return true;
-        }else{
-            return false;
-        }
+    protected boolean isFinished() {
+        return true;
+//        if(timer.get() > time){
+//            return true;
+//        }else{
+//            return false;
+//        }
     }
 
     // Called once after isFinished returns true

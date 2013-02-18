@@ -30,6 +30,7 @@ public interface Drive {
     public void driveWithJoystick(Controller joystick);
     public void rammingSpeed(Controller joystick);
     public void turn(double speed);
+    public void turn(double speed, double distance);
     public void forward(double speed, double distance);
     public void reverse(double speed, double distance);
     public void forward(double speed);

@@ -38,7 +38,7 @@ public class OI {
         
         JoystickButton elevatorRaise = new JoystickButton(driveController, 8);
         JoystickButton elevatorLower = new JoystickButton(driveController, 7);
-        JoystickButton conveyorOn = new JoystickButton(driveController, 3);
+        JoystickButton conveyorToggleOn = new JoystickButton(driveController, 3);
         JoystickButton conveyorRev = new JoystickButton(driveController, 1);
 //        JoystickButton center = new JoystickButton(driveController, 10);
 //        JoystickButton flash = new JoystickButton(driveController, 4);
@@ -58,11 +58,9 @@ public class OI {
         elevatorLower.whileHeld(new ElevatorLowerCommand());
         elevatorLower.whenReleased(new ElevatorStopCommand());
         
-        conveyorOn.whenPressed(new ConveyorOnCommand());
-        conveyorOn.whenReleased(new ConveyorStopCommand());
+        conveyorToggleOn.whenPressed(new ConveyorOnCommand());
         
         conveyorRev.whenPressed(new ConveyorReverseCommand());
-        conveyorRev.whenReleased(new ConveyorStopCommand());
         
 //        center.whileHeld( new CenterRobotCommand());
 //        center.whenReleased(new DriveWithJoystick());
@@ -85,7 +83,7 @@ public class OI {
         throwerLowerSimple.whenPressed(new SimpleLowerCommand());
         throwerLowerSimple.whenReleased(new AimMotorStop());
         
-        pushDisc.whileHeld(new pushCommand());
+        pushDisc.whenPressed(new pushCommand());
         pushDisc.whenReleased(new PushStopCommand());
         
         moveToAngle.whenPressed(new MoveToAngleCommand());

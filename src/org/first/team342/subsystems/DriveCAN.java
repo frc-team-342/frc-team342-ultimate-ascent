@@ -43,15 +43,51 @@ public class DriveCAN extends DriveBase {
     private CANJaguar rightRear;
     private RobotDrive robotDrive;
     private DriverStation station;
+    private final double DISTANCE_PER_ROTATION = 1.4995668990882067; //inches [6in * pi / 12.57gearratio] 
 
     private DriveCAN() {
         super();
-        this.leftFront = RobotUtilities.initializeCANJaguar(RobotMap.CAN_DEVICE_LEFT_FRONT_DRIVE_MOTOR);
-        this.rightFront = RobotUtilities.initializeCANJaguar(RobotMap.CAN_DEVICE_RIGHT_FRONT_DRIVE_MOTOR);
-        this.leftRear = RobotUtilities.initializeCANJaguar(RobotMap.CAN_DEVICE_LEFT_REAR_DRIVE_MOTOR);
-        this.rightRear = RobotUtilities.initializeCANJaguar(RobotMap.CAN_DEVICE_RIGHT_REAR_DRIVE_MOTOR);
-        this.robotDrive = new RobotDrive(leftFront, leftRear, rightFront, rightRear);
-        this.robotDrive.setSafetyEnabled(false);
+        try {
+            this.leftFront = RobotUtilities.initializeCANJaguar(RobotMap.CAN_DEVICE_LEFT_FRONT_DRIVE_MOTOR);
+            this.rightFront = RobotUtilities.initializeCANJaguar(RobotMap.CAN_DEVICE_RIGHT_FRONT_DRIVE_MOTOR);
+            this.leftRear = RobotUtilities.initializeCANJaguar(RobotMap.CAN_DEVICE_LEFT_REAR_DRIVE_MOTOR);
+            this.rightRear = RobotUtilities.initializeCANJaguar(RobotMap.CAN_DEVICE_RIGHT_REAR_DRIVE_MOTOR);
+            this.robotDrive = new RobotDrive(leftFront, leftRear, rightFront, rightRear);
+            this.robotDrive.setSafetyEnabled(false);
+            this.leftFront.setPositionReference(CANJaguar.PositionReference.kQuadEncoder);
+            this.rightFront.setPositionReference(CANJaguar.PositionReference.kQuadEncoder);
+            this.leftRear.setPositionReference(CANJaguar.PositionReference.kQuadEncoder);
+            this.rightRear.setPositionReference(CANJaguar.PositionReference.kQuadEncoder);
+            this.leftFront.setSpeedReference(CANJaguar.SpeedReference.kQuadEncoder);
+            this.rightFront.setSpeedReference(CANJaguar.SpeedReference.kQuadEncoder);
+            this.leftRear.setSpeedReference(CANJaguar.SpeedReference.kQuadEncoder);
+            this.rightRear.setSpeedReference(CANJaguar.SpeedReference.kQuadEncoder);
+
+        } catch (CANTimeoutException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void setControlModePosition() {
+        try {
+            this.leftFront.changeControlMode(CANJaguar.ControlMode.kPosition);
+            this.leftRear.changeControlMode(CANJaguar.ControlMode.kPosition);
+            this.rightFront.changeControlMode(CANJaguar.ControlMode.kPosition);
+            this.leftFront.changeControlMode(CANJaguar.ControlMode.kPosition);
+        } catch (CANTimeoutException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void setControlModeSpeed() {
+        try {
+            this.leftFront.changeControlMode(CANJaguar.ControlMode.kSpeed);
+            this.leftRear.changeControlMode(CANJaguar.ControlMode.kSpeed);
+            this.rightFront.changeControlMode(CANJaguar.ControlMode.kSpeed);
+            this.leftFront.changeControlMode(CANJaguar.ControlMode.kSpeed);
+        } catch (CANTimeoutException ex) {
+            ex.printStackTrace();
+        }
     }
 
     public static DriveBase getInstance() {
@@ -78,27 +114,55 @@ public class DriveCAN extends DriveBase {
     public void turn(double speed) {
         this.robotDrive.tankDrive(speed, -speed);
     }
-    /* TO DO MAKE WORK, aka add startX(distance*k)
-     * k = constant value 
-     * add for all motors
-     */
-   
 
-    public void forward(double speed, double distance) {
+    public void turn(double speed, double distance) {
+        this.setControlModePosition();
+        distance = distance / DISTANCE_PER_ROTATION;
         try {
-            this.leftFront.changeControlMode(CANJaguar.ControlMode.kPosition);
-            this.leftRear.changeControlMode(CANJaguar.ControlMode.kPosition);
-            this.rightFront.changeControlMode(CANJaguar.ControlMode.kPosition);
-            this.leftFront.changeControlMode(CANJaguar.ControlMode.kPosition);
+            this.leftFront.setX(-distance);
+            this.rightFront.setX(distance);
+            this.leftRear.setX(-distance);
+            this.rightRear.setX(distance);
         } catch (CANTimeoutException ex) {
             ex.printStackTrace();
         }
-        
-        
+    }
+    /*
+     * TO DO MAKE WORK, aka add startX(distance*k) k = constant value add for
+     * all motors
+     */
+
+    public void forward(double speed, double distance) {
+        this.setControlModePosition();
+        byte syncGroup = 1;
+        distance = distance / DISTANCE_PER_ROTATION;
+        try {
+            this.leftFront.setX(distance, syncGroup);
+            this.rightFront.setX(distance, syncGroup);
+            this.leftRear.setX(distance, syncGroup);
+            this.rightRear.setX(distance, syncGroup);
+            CANJaguar.updateSyncGroup(syncGroup);
+        } catch (CANTimeoutException ex) {
+            ex.printStackTrace();
+        }
+
     }
     // TO DO MAKE WORK, aka ADD DISTANCE 
 
     public void reverse(double speed, double distance) {
+        this.setControlModePosition();
+        byte syncGroup = 1;
+        distance = distance / DISTANCE_PER_ROTATION;
+        try {
+            this.leftFront.setX(-distance, syncGroup);
+            this.rightFront.setX(-distance, syncGroup);
+            this.leftRear.setX(-distance, syncGroup);
+            this.rightRear.setX(-distance, syncGroup);
+            CANJaguar.updateSyncGroup(syncGroup);
+        } catch (CANTimeoutException ex) {
+            ex.printStackTrace();
+        }
+
     }
 
     public void forward(double speed) {

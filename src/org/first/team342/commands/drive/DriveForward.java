@@ -16,8 +16,13 @@ import org.first.team342.subsystems.DriveCAN;
 public class DriveForward extends CommandBase {
     DriveBase drive = DriveCAN.getInstance();
     Timer timer;
+    double speed;
+    double distance;
     
-    public DriveForward(double time) {
+    public DriveForward(double speed, double distance) {
+        requires(drive);
+        this.speed = speed;
+        this.distance = distance;
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -29,16 +34,17 @@ public class DriveForward extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        drive.forward(1.0);
+        drive.forward(this.speed, this.distance);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished(double time) {
-        if(timer.get() > time){
-            return true;
-        }else{
-            return false;
-        }
+        return true;
+//        if(timer.get() > time){
+//            return true;
+//        }else{
+//            return false;
+//        }
     }
 
     // Called once after isFinished returns true

@@ -17,7 +17,6 @@
  * along with "FRC Team 342 Ultimate Ascent Robot".  If not, see 
  * <http://www.gnu.org/licenses/>.
  */
-
 package org.first.team342.subsystems;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -85,11 +84,17 @@ public class DrivePWM extends DriveBase {
     public void turn(double speed) {
         this.robotDrive.tankDrive(speed, -speed);
     }
+
+    public void turn(double speed, double distance) {
+        this.robotDrive.tankDrive(speed, -speed);
+    }
+
     // TO DO MAKE WORK, aka ADD DISTANCE 
     public void forward(double speed, double distance) {
         this.forward(speed);
     }
     // TO DO MAKE WORK, aka ADD DISTANCE 
+
     public void reverse(double speed, double distance) {
         this.reverse(speed);
     }

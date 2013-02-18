@@ -6,14 +6,14 @@ package org.first.team342.commands.thrower;
 
 import org.first.team342.abstractions.ThrowerBase;
 import org.first.team342.commands.CommandBase;
-import org.first.team342.subsystems.ThrowerPWM;
+import org.first.team342.subsystems.ThrowerCAN;
 
 /**
  *
  * @author Charlie
  */
 public class PushStopCommand extends CommandBase {
-    private ThrowerBase thrower = ThrowerPWM.getInstance();
+    private ThrowerBase thrower = ThrowerCAN.getInstance();
     
     public PushStopCommand() {
         requires(thrower);
@@ -30,7 +30,7 @@ public class PushStopCommand extends CommandBase {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true
