@@ -27,12 +27,12 @@ public class SimpleLowerCommand extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        thrower.simpleLower(1.0);
+        thrower.simpleLower(.6);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return !this.thrower.getSwitchBottom();
     }
 
     // Called once after isFinished returns true

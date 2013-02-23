@@ -7,14 +7,14 @@ package org.first.team342.commands.elevator;
 import org.first.team342.commands.CommandBase;
 import org.first.team342.subsystems.Elevator;
 
-
 /**
  *
  * @author Charlie
  */
 public class ElevatorLowerCommand extends CommandBase {
+
     private Elevator elevator = Elevator.getInstance();
-    
+
     public ElevatorLowerCommand() {
         requires(elevator);
         // Use requires() here to declare subsystem dependencies
@@ -34,12 +34,16 @@ public class ElevatorLowerCommand extends CommandBase {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        if (elevator.getSwitchBottom()) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    System.out.println("down turned off");
+        System.out.println("down turned off");
     }
 
     // Called when another command which requires one or more of the same

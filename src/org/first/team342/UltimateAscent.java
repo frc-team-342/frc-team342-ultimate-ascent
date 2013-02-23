@@ -66,6 +66,9 @@ public class UltimateAscent extends IterativeRobot {
     public void autonomousInit() {
         // schedule the autonomous command (example)
         //autonomousCommand.start();
+        this.autonomousCommand = (Command) this.autonomousChooser.getSelected();
+        this.autonomousCommand.start();
+        
     }
 
     /**

@@ -16,15 +16,12 @@ import org.first.team342.RobotMap;
 public class Lights extends Subsystem {
     private static final Lights INSTANCE = new Lights();
     private Relay red;
-    private Relay blue;
 //    private Timer timer;
     
     private Lights() {
         super();
         this.red = new Relay(RobotMap.LIGHT_RED);
         this.red.setDirection(Relay.Direction.kForward);
-        this.blue = new Relay(RobotMap.LIGHT_BLUE);
-        this.blue.setDirection(Relay.Direction.kForward);
     }
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -39,25 +36,19 @@ public class Lights extends Subsystem {
     }
     
     public void redOn(){
-        blue.set(Relay.Value.kReverse);
-        blue.set(Relay.Value.kOn);
+        red.set(Relay.Value.kReverse);
+        red.set(Relay.Value.kOn);
 //        blue.set(Relay.Value.kOff);
     }
     
     public void blueOn(){
-        blue.set(Relay.Value.kForward);
-        blue.set(Relay.Value.kOn);
-//        red.set(Relay.Value.kOff);
-    }
-    
-    public void bothOn(){
+        red.set(Relay.Value.kForward);
         red.set(Relay.Value.kOn);
-        blue.set(Relay.Value.kOn);
+//        red.set(Relay.Value.kOff);
     }
     
     public void bothOff(){
         red.set(Relay.Value.kOff);
-        blue.set(Relay.Value.kOff);
     }
 
     public void bothFlashAlternate(double interval){
