@@ -23,7 +23,7 @@ public class PiStreem extends Subsystem {
         try {
             connection = new SocketConnectionStream("10.3.42.9", 8882);
         } catch (IOException ex) {
-            ex.printStackTrace();
+            System.out.print("failed to connect to Pi");
         }
     }
 
