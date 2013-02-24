@@ -4,7 +4,7 @@
  */
 package org.first.team342.commands.thrower;
 
-import org.first.team342.PiStreem;
+import org.first.team342.subsystems.PiStreem;
 import org.first.team342.abstractions.ThrowerBase;
 import org.first.team342.commands.CommandBase;
 import org.first.team342.subsystems.ThrowerCAN;
