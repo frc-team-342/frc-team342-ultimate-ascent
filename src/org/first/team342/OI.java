@@ -22,7 +22,6 @@ package org.first.team342;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import org.first.team342.commands.conveyor.ConveyorOnCommand;
 import org.first.team342.commands.conveyor.ConveyorReverseCommand;
-import org.first.team342.commands.conveyor.ConveyorStopCommand;
 import org.first.team342.commands.elevator.ElevatorLowerCommand;
 import org.first.team342.commands.elevator.ElevatorRaiseCommand;
 import org.first.team342.commands.elevator.ElevatorStopCommand;
@@ -39,7 +38,7 @@ public class OI {
 
     private OI() {
         driveController = new Controller(RobotMap.JOYSTICK_DRIVE_CONTROL);
-        
+
         JoystickButton elevatorRaise = new JoystickButton(driveController, 8);
         JoystickButton elevatorLower = new JoystickButton(driveController, 7);
         JoystickButton conveyorToggleOn = new JoystickButton(driveController, 3);
@@ -56,16 +55,18 @@ public class OI {
         JoystickButton moveToAngle = new JoystickButton(driveController, 9);
 //        JoystickButton potentiometerTest = new JoystickButton(driveController, 10);
         
+        JoystickButton potentiometerTest = new JoystickButton(driveController, 10);
+
         elevatorRaise.whileHeld(new ElevatorRaiseCommand());
         elevatorRaise.whenReleased(new ElevatorStopCommand());
-        
+
         elevatorLower.whileHeld(new ElevatorLowerCommand());
         elevatorLower.whenReleased(new ElevatorStopCommand());
-        
+
         conveyorToggleOn.whenPressed(new ConveyorOnCommand());
-        
+
         conveyorRev.whenPressed(new ConveyorReverseCommand());
-        
+
 //        center.whileHeld( new CenterRobotCommand());
 //        center.whenReleased(new DriveWithJoystick());
 //        
@@ -84,9 +85,13 @@ public class OI {
         throwerRaiseSimple.whenPressed(new SimpleRaiseCommand());
         throwerRaiseSimple.whenReleased(new AimMotorStop());
         
+
+        throwerRaiseSimple.whenPressed(new SimpleRaiseCommand());
+        throwerRaiseSimple.whenReleased(new AimMotorStop());
+
         throwerLowerSimple.whenPressed(new SimpleLowerCommand());
         throwerLowerSimple.whenReleased(new AimMotorStop());
-        
+
         pushDisc.whenPressed(new pushCommand());
         pushDisc.whenReleased(new PushStopCommand());
         
@@ -99,6 +104,10 @@ public class OI {
         
         //targeting.whileHeld(new CenterRobotCommand());
         //targeting.whenReleased(new DriveWithJoystick());
+        moveToAngle.whileHeld(new MoveToAngleCommand(1.0, 40.0));
+        moveToAngle.whenReleased(new AimMotorStop());
+
+        potentiometerTest.whileHeld(new PotentiometerTestCommand());
     }
 
     public static OI getInstance() {
@@ -108,5 +117,4 @@ public class OI {
     public Controller getDriveController() {
         return driveController;
     }
-
 }
