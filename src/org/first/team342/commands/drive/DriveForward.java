@@ -5,7 +5,6 @@
 package org.first.team342.commands.drive;
 
 import org.first.team342.commands.CommandBase;
-import edu.wpi.first.wpilibj.Timer;
 import org.first.team342.abstractions.DriveBase;
 import org.first.team342.subsystems.DriveCAN;
 
@@ -15,7 +14,6 @@ import org.first.team342.subsystems.DriveCAN;
  */
 public class DriveForward extends CommandBase {
     DriveBase drive = DriveCAN.getInstance();
-    Timer timer;
     double speed;
     double distance;
     
@@ -29,7 +27,6 @@ public class DriveForward extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        timer.start();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -38,7 +35,7 @@ public class DriveForward extends CommandBase {
     }
 
     // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished(double time) {
+    protected boolean isFinished() {
         return true;
 //        if(timer.get() > time){
 //            return true;

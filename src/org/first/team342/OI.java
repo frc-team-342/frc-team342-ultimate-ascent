@@ -26,6 +26,10 @@ import org.first.team342.commands.conveyor.ConveyorStopCommand;
 import org.first.team342.commands.elevator.ElevatorLowerCommand;
 import org.first.team342.commands.elevator.ElevatorRaiseCommand;
 import org.first.team342.commands.elevator.ElevatorStopCommand;
+import org.first.team342.commands.lights.BlueLightOnCommand;
+import org.first.team342.commands.lights.BothLightsOffCommand;
+import org.first.team342.commands.lights.FlashAlternatingCommand;
+import org.first.team342.commands.lights.RedLightOnCommand;
 import org.first.team342.commands.thrower.*;
 
 public class OI {
@@ -50,7 +54,7 @@ public class OI {
         JoystickButton throwerLowerSimple = new JoystickButton(driveController, 2);
         JoystickButton pushDisc = new JoystickButton(driveController, 5);
         JoystickButton moveToAngle = new JoystickButton(driveController, 9);
-        JoystickButton potentiometerTest = new JoystickButton(driveController, 10);
+//        JoystickButton potentiometerTest = new JoystickButton(driveController, 10);
         
         elevatorRaise.whileHeld(new ElevatorRaiseCommand());
         elevatorRaise.whenReleased(new ElevatorStopCommand());
@@ -77,19 +81,20 @@ public class OI {
         simpleShootForward.whenPressed(new SimpleShootForwardCommand());
         simpleShootForward.whenReleased(new ThrowerOffCommand());
         
-        throwerRaiseSimple.whileHeld(new SimpleRaiseCommand());
+        throwerRaiseSimple.whenPressed(new SimpleRaiseCommand());
         throwerRaiseSimple.whenReleased(new AimMotorStop());
         
-        throwerLowerSimple.whileHeld(new SimpleLowerCommand());
+        throwerLowerSimple.whenPressed(new SimpleLowerCommand());
         throwerLowerSimple.whenReleased(new AimMotorStop());
         
         pushDisc.whenPressed(new pushCommand());
         pushDisc.whenReleased(new PushStopCommand());
         
-        moveToAngle.whenPressed(new MoveToAngleCommand());
+        moveToAngle.whileHeld(new MoveToAngleCommand(1.0, 40.0));
         moveToAngle.whenReleased(new AimMotorStop());
         
-        potentiometerTest.whileHeld(new PotentiometerTestCommand());
+//        potentiometerTest.whenPressed(new RedLightOnCommand());
+//        potentiometerTest.whenReleased(new BothLightsOffCommand());
         //JoystickButton targeting = new JoystickButton(driveController, 4);
         
         //targeting.whileHeld(new CenterRobotCommand());

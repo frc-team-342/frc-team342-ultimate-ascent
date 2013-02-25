@@ -4,7 +4,10 @@
  */
 package org.first.team342.commands.autonomous;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.WaitCommand;
+import org.first.team342.commands.PrintCommand;
 import org.first.team342.commands.elevator.ElevatorRaiseCommand;
 import org.first.team342.commands.elevator.ElevatorStopCommand;
 import org.first.team342.commands.thrower.PushStopCommand;
@@ -16,9 +19,10 @@ import org.first.team342.commands.thrower.pushCommand;
  *
  * @author Team 342
  */
-public class ShootOnly extends CommandGroup {
+public class RaiseShootOnly extends CommandGroup {
     final long timeout = (long) 10.0;
-    public ShootOnly() {
+    Timer timer;
+    public RaiseShootOnly() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -37,8 +41,12 @@ public class ShootOnly extends CommandGroup {
         // arm.
         addParallel(new SimpleShootForwardCommand());
         addSequential(new ElevatorRaiseCommand());
-        addSequential(new pushCommand(),10.0);
-        addParallel(new ThrowerOffCommand());
+        addSequential(new PrintCommand("[Auto] After Raise, before push"));
+        addSequential(new pushCommand());
+        addSequential(new PrintCommand("[Auto] After Push, before delay"));
+        addSequential(new WaitCommand(timeout));
+        addSequential(new PrintCommand("[Auto] After Delay, before off"));
+        addSequential(new ThrowerOffCommand());
         addParallel(new ElevatorStopCommand());
         addParallel(new PushStopCommand());
     }

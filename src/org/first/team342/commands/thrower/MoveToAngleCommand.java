@@ -13,10 +13,14 @@ import org.first.team342.subsystems.ThrowerCAN;
  * @author Charlie
  */
 public class MoveToAngleCommand extends CommandBase {
+    double angle;
+    double speed;
     private ThrowerBase thrower = ThrowerCAN.getInstance();
-    
-    public MoveToAngleCommand() {
+
+    public MoveToAngleCommand(double speed, double angle) {
         requires(thrower);
+        this.angle = angle;
+        this.speed = speed;
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -26,8 +30,8 @@ public class MoveToAngleCommand extends CommandBase {
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute(double angle) {
-        this.thrower.moveToAngle(angle);
+    protected void execute() {
+        this.thrower.moveToAngle(this.speed, this.angle);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -42,8 +46,5 @@ public class MoveToAngleCommand extends CommandBase {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    }
-
-    protected void execute() {
     }
 }

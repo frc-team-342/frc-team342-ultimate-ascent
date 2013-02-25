@@ -4,6 +4,7 @@
  */
 package org.first.team342.commands.thrower;
 
+import edu.wpi.first.wpilibj.Timer;
 import org.first.team342.abstractions.ThrowerBase;
 import org.first.team342.commands.CommandBase;
 import org.first.team342.subsystems.ThrowerCAN;
@@ -13,8 +14,12 @@ import org.first.team342.subsystems.ThrowerCAN;
  * @author Charlie
  */
 public class SimpleRaiseCommand extends CommandBase {
+
     private ThrowerBase thrower = ThrowerCAN.getInstance();
-    
+    private double speed;
+    private double RAMP_DELAY = .025;
+    private double RAMP_INCREASE = .05;
+
     public SimpleRaiseCommand() {
         requires(thrower);
         // Use requires() here to declare subsystem dependencies
@@ -23,17 +28,22 @@ public class SimpleRaiseCommand extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        speed = .1;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        thrower.simpleRaise(0.6);   //JH-lowered motor power on raise
-        //thrower.simpleRaise(0.6 * (30 - thrower.convertAngle()));
+        thrower.simpleRaise(speed);
+        if (this.speed < 1.0) {
+            speed = speed + RAMP_INCREASE;
+            Timer.delay(RAMP_DELAY);
+        }
+
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return !this.thrower.getSwitchTop();
     }
 
     // Called once after isFinished returns true

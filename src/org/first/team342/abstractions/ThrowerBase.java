@@ -28,7 +28,7 @@ import org.first.team342.RobotMap;
  * @author Team 342
  */
 public abstract class ThrowerBase extends Subsystem implements Thrower {
-    
+
     private double targetAngle;
     private SpeedController aim;
 //    private Gyro gyro;
@@ -39,7 +39,7 @@ public abstract class ThrowerBase extends Subsystem implements Thrower {
     protected DigitalInput pushLimitSwitch;
     protected Timer timer;
     protected DriverStation driver;
-    
+
     protected ThrowerBase() {
         super();
         this.targetAngle = 0.0;
@@ -53,51 +53,6 @@ public abstract class ThrowerBase extends Subsystem implements Thrower {
         this.driver = DriverStation.getInstance();
     }
 
-//    public void moveToAngle(double angle) {
-//        if (this.top.get()) {
-//            this.aim.set(0.0);
-//        } else if (this.bottom.get()) {
-//            this.aim.set(0.0);
-//            this.gyro.reset();
-//        } else if (this.gyro.getAngle() - RobotMap.GYRO_DEAD_ZONE < angle) {
-//            this.aim.set(.5);
-//            this.targetAngle = this.gyro.getAngle();
-//        } else if (this.gyro.getAngle() + RobotMap.GYRO_DEAD_ZONE > angle) {
-//            this.aim.set(-.5);
-//            this.targetAngle = this.gyro.getAngle();
-//        } else {
-//            this.aim.set(0.0);
-//        }
-//    }
-//    
-//    public void increseAngle(double angle) {
-//        this.targetAngle = (this.targetAngle + angle);
-//        if (this.top.get()) {
-//            this.aim.set(0.0);
-//        } else if (this.gyro.getAngle() - RobotMap.GYRO_DEAD_ZONE < this.targetAngle) {
-//            this.aim.set(.5);
-//        } else if (this.gyro.getAngle() + RobotMap.GYRO_DEAD_ZONE > this.targetAngle) {
-//            this.aim.set(-.5);
-//        } else {
-//            this.aim.set(0.0);
-//        }
-//    }
-//
-//    public void decreaseAngle(double angle) {
-//        this.targetAngle = (this.targetAngle - angle);
-//        if (this.bottom.get()) {
-//            this.aim.set(0.0);
-//            this.gyro.reset();
-//        } else if (this.gyro.getAngle() - RobotMap.GYRO_DEAD_ZONE < this.targetAngle) {
-//            this.aim.set(.5);
-//            this.targetAngle = this.gyro.getAngle();
-//        } else if (this.gyro.getAngle() + RobotMap.GYRO_DEAD_ZONE > this.targetAngle) {
-//            this.aim.set(-.5);
-//            this.targetAngle = this.gyro.getAngle();
-//        } else {
-//            this.aim.set(0.0);
-//        }
-//    }
     public void simpleRaise(double speed) {
         System.out.println("ThrowerAim Top switch is: " + this.top.get());
         if (!this.top.get()) {
@@ -106,7 +61,7 @@ public abstract class ThrowerBase extends Subsystem implements Thrower {
             this.aim.set(speed);
         }
     }
-    
+
     public void simpleLower(double speed) {
         System.out.println("ThrowerAim Bottom switch is: " + this.bottom.get());
         if (!this.bottom.get()) {
@@ -116,25 +71,34 @@ public abstract class ThrowerBase extends Subsystem implements Thrower {
             this.aim.set(-speed);
         }
     }
-    
-    public void moveToAngle(double angle) {
-        /*
-         * double uncertainty = 1.0; if (!this.top.get()) { this.aim.set(0.0); }
-         * else if (!this.bottom.get()) { this.aim.set(0.0); } else if
-         * (this.convertAngle(this.potentiometer.getVoltage()) + uncertainty <
-         * angle) { this.aim.set(.5); } else if
-         * (this.convertAngle(this.potentiometer.getVoltage()) - uncertainty >
-         * angle) { this.aim.set(-.5); } else { this.aim.set(0.0); }
-         */
+
+    public void moveToAngle(double speed, double angle) {
+        double uncertainty = 1.0;
+        if (!this.top.get()) {
+            this.aim.set(0.0);
+        } else if (!this.bottom.get()) {
+            this.aim.set(0.0);
+        } else if (this.convertAngle(this.potentiometer.getVoltage()) + uncertainty
+                < angle) {
+            this.aim.set(speed);
+        } else if (this.convertAngle(this.potentiometer.getVoltage()) - uncertainty
+                > angle) {
+            this.aim.set(-speed);
+        } else {
+            this.aim.set(0.0);
+        }
+    }
+
+    public void moveToAngleSupporting(double angle){
         double aimOut = (this.driver.getAnalogIn(3) / 10) * (angle - this.convertAngle());
-        if (aimOut > 1){
+        if (aimOut > 1) {
             aimOut = 1;
         }
-       if (aimOut < .3) {
+        if (aimOut < .3) {
             aimOut = .3;
         }
-       this.aim.set(-aimOut);
-       System.out.println("Aim Out :" + aimOut);
+        this.aim.set(-aimOut);
+        System.out.println("Aim Out :" + aimOut);
     }
 
     //TODO: fix target angle settings
@@ -165,7 +129,7 @@ public abstract class ThrowerBase extends Subsystem implements Thrower {
             this.aim.set(0.0);
         }
     }
-    
+
     public void potentiometerTest() {
         double rawValue = this.potentiometer.getVoltage();
         System.out.println("Raw Value: " + rawValue);
@@ -174,16 +138,16 @@ public abstract class ThrowerBase extends Subsystem implements Thrower {
 //        SmartDashboard.putNumber("Angle Value: ", angleValue);
         System.out.println("Angle Value: " + angleValue);
     }
-    
+
     public void aimMotorStop() {
         this.aim.set(0.0);
     }
-    
+
     public void pushMotorSet(double value) {
         pushMotor.set(value);
         System.out.println("vex motor running");
     }
-    
+
     public void push(double value) {
         if (pushLimitSwitch.get()) {
             pushMotor.set(value);
@@ -191,11 +155,19 @@ public abstract class ThrowerBase extends Subsystem implements Thrower {
             pushMotor.set(0.0);
         }
     }
-    
+
     public boolean getSwitch() {
         return pushLimitSwitch.get();
     }
     
+    public boolean getSwitchTop(){
+        return this.top.get();
+    }
+    
+    public boolean getSwitchBottom(){
+        return this.bottom.get();
+    }
+
     public double convertAngle(double input) {
         double angleConstant = 60.0;
         double angle = input * angleConstant;

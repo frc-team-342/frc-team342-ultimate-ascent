@@ -78,4 +78,12 @@ public class Elevator extends Subsystem {
     public void stop() {
         this.elevatorMotor.set(0);
     }
+    
+    public boolean getSwitchTop(){
+        return this.top.get();
+    }
+    
+    public boolean getSwitchBottom(){
+        return this.bottom.get();
+    }
 }

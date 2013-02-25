@@ -2,49 +2,37 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.first.team342.commands.elevator;
-
-import org.first.team342.commands.CommandBase;
-import org.first.team342.subsystems.Elevator;
-
+package org.first.team342.commands;
 
 /**
  *
  * @author Charlie
  */
-public class ElevatorRaiseCommand extends CommandBase {
-    private Elevator elevator = Elevator.getInstance();
+public class PrintCommand extends CommandBase {
+    private String string;
     
-    public ElevatorRaiseCommand() {
-        requires(elevator);
+    public PrintCommand(String inputString) {
+        this.string = inputString;
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        System.out.println("up initialized");
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        elevator.raise(1.0);
-        System.out.println("Executed Up");
+        System.out.println(this.string);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return !elevator.getSwitchTop();
-//        if (elevator.getSwitchTop()){
-//            return false;
-//        }else{
-//            return true;
-//        }
+        return true;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-        System.out.println("Up turned off");
     }
 
     // Called when another command which requires one or more of the same

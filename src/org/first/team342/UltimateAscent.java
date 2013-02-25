@@ -32,6 +32,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.first.team342.abstractions.Thrower;
 import org.first.team342.commands.autonomous.DriveAndShoot;
+import org.first.team342.commands.autonomous.DriveAndShootTime;
 import org.first.team342.commands.autonomous.ShootOnly;
 import org.first.team342.commands.drive.DriveWithJoystick;
 
@@ -56,8 +57,9 @@ public class UltimateAscent extends IterativeRobot {
         joystickCommand = new DriveWithJoystick();
         System.out.println("Autonomous mode chooser:");
         this.autonomousChooser = new SendableChooser();
-        this.autonomousChooser.addDefault("Shoot Only, Default ", new ShootOnly());
+        this.autonomousChooser.addObject("Shoot Only, Default ", new ShootOnly());
         this.autonomousChooser.addObject("Drive Forward and shoot ", new DriveAndShoot());
+        this.autonomousChooser.addDefault("Drive Forward and shoot, controled by time", new DriveAndShootTime());
         SmartDashboard.putData("Autonomous Mode", this.autonomousChooser);
         System.out.println("Autonomous choice sent to Dashboard");
 
@@ -66,6 +68,9 @@ public class UltimateAscent extends IterativeRobot {
     public void autonomousInit() {
         // schedule the autonomous command (example)
         //autonomousCommand.start();
+        this.autonomousCommand = (Command) this.autonomousChooser.getSelected();
+        this.autonomousCommand.start();
+        
     }
 
     /**

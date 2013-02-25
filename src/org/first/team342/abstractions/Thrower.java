@@ -37,7 +37,7 @@ public interface Thrower {
 
     public double getFrontSpeed();
 
-    public void moveToAngle(double angle);
+    public void moveToAngle(double speed, double angle);
 
     public void increseAngle(double angle);
 
@@ -54,4 +54,6 @@ public interface Thrower {
     public void pushMotorSet(double value);
     
     public void aimMotorStop();
+
+    public void moveToAngleSupporting(double angle);
 }

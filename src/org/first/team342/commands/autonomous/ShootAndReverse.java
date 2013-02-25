@@ -5,19 +5,22 @@
 package org.first.team342.commands.autonomous;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import org.first.team342.commands.drive.DriveForward;
+import org.first.team342.commands.drive.DriveReverse;
 import org.first.team342.commands.drive.TurnCommand;
 import org.first.team342.commands.elevator.ElevatorRaiseCommand;
+import org.first.team342.commands.elevator.ElevatorStopCommand;
+import org.first.team342.commands.thrower.PushStopCommand;
 import org.first.team342.commands.thrower.SimpleShootForwardCommand;
+import org.first.team342.commands.thrower.ThrowerOffCommand;
 import org.first.team342.commands.thrower.pushCommand;
 
 /**
  *
- * @author Charlie
+ * @author Team 342
  */
-public class DriveAndShoot extends CommandGroup {
-    
-    public DriveAndShoot() {
+public class ShootAndReverse extends CommandGroup {
+    final long timeout = (long) 10.0;
+    public ShootAndReverse() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -34,12 +37,13 @@ public class DriveAndShoot extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-        addSequential(new DriveForward(1.0, 100.0));
-        addSequential(new TurnCommand(-1.0, 10.0));
-        addSequential(new DriveForward(1.0, 100.0));
-        addSequential(new TurnCommand(1.0, 10.0));
         addParallel(new SimpleShootForwardCommand());
         addSequential(new ElevatorRaiseCommand());
-        addSequential(new pushCommand());
+        addSequential(new pushCommand(),timeout);
+        addParallel(new ThrowerOffCommand());
+        addParallel(new ElevatorStopCommand());
+        addParallel(new PushStopCommand());
+        addSequential(new TurnCommand(1.0, 10.0));
+        addSequential(new DriveReverse(1.0, 50.0));
     }
 }
