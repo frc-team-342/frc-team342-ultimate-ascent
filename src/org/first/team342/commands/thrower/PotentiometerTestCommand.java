@@ -16,11 +16,11 @@ import org.first.team342.subsystems.ThrowerCAN;
 public class PotentiometerTestCommand extends CommandBase {
 
     private ThrowerBase thrower = ThrowerCAN.getInstance();
-    private PiStreem pi = PiStreem.getInstance();
+//    private PiStreem pi = PiStreem.getInstance();
 
     public PotentiometerTestCommand() {
         requires(thrower);
-        requires(pi);
+//        requires(pi);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -32,13 +32,13 @@ public class PotentiometerTestCommand extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-//        this.thrower.potentiometerTest();
-        System.out.println(this.pi.getData());
+        this.thrower.potentiometerTest();
+//        System.out.println(this.pi.getData());
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true

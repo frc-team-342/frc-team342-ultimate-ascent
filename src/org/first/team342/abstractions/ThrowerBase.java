@@ -73,18 +73,24 @@ public abstract class ThrowerBase extends Subsystem implements Thrower {
     }
 
     public void moveToAngle(double speed, double angle) {
+        System.out.println("[DEBUG] moveToAngle method executed");
         double uncertainty = 1.0;
         if (!this.top.get()) {
+        System.out.println("[DEBUG] moveToAngle method Top Limit Switch Tripped");
             this.aim.set(0.0);
         } else if (!this.bottom.get()) {
+                    System.out.println("[DEBUG] moveToAngle method Bottom Limit Switch Tripped");
             this.aim.set(0.0);
-        } else if (this.convertAngle(this.potentiometer.getVoltage()) + uncertainty
+        } else if (this.convertAngle() + uncertainty
                 < angle) {
+                    System.out.println("[DEBUG] moveToAngle method executed up");
             this.aim.set(speed);
-        } else if (this.convertAngle(this.potentiometer.getVoltage()) - uncertainty
+        } else if (this.convertAngle() - uncertainty
                 > angle) {
+                    System.out.println("[DEBUG] moveToAngle method executed down");
             this.aim.set(-speed);
         } else {
+                    System.out.println("[DEBUG] moveToAngle method in uncertainty");
             this.aim.set(0.0);
         }
     }

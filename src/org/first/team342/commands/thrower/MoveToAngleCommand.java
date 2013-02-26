@@ -27,11 +27,13 @@ public class MoveToAngleCommand extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    System.out.println("[DEBUG] MoveToAngleCommand initialized");
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
         this.thrower.moveToAngle(this.speed, this.angle);
+        System.out.println("[DEBUG] MoveToAngleCommand executed");
     }
 
     // Make this return true when this Command no longer needs to run execute()

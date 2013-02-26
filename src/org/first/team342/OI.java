@@ -20,15 +20,12 @@
 package org.first.team342;
 
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import org.first.team342.commands.PrintCommand;
 import org.first.team342.commands.conveyor.ConveyorOnCommand;
 import org.first.team342.commands.conveyor.ConveyorReverseCommand;
 import org.first.team342.commands.elevator.ElevatorLowerCommand;
 import org.first.team342.commands.elevator.ElevatorRaiseCommand;
 import org.first.team342.commands.elevator.ElevatorStopCommand;
-import org.first.team342.commands.lights.BlueLightOnCommand;
-import org.first.team342.commands.lights.BothLightsOffCommand;
-import org.first.team342.commands.lights.FlashAlternatingCommand;
-import org.first.team342.commands.lights.RedLightOnCommand;
 import org.first.team342.commands.thrower.*;
 
 public class OI {
@@ -61,7 +58,7 @@ public class OI {
         elevatorRaise.whenReleased(new ElevatorStopCommand());
 
         elevatorLower.whileHeld(new ElevatorLowerCommand());
-        elevatorLower.whenReleased(new ElevatorStopCommand());
+        elevatorLower.whenReleased(new PrintCommand("OI works"));
 
         conveyorToggleOn.whenPressed(new ConveyorOnCommand());
 
@@ -85,10 +82,6 @@ public class OI {
         throwerRaiseSimple.whenPressed(new SimpleRaiseCommand());
         throwerRaiseSimple.whenReleased(new AimMotorStop());
         
-
-        throwerRaiseSimple.whenPressed(new SimpleRaiseCommand());
-        throwerRaiseSimple.whenReleased(new AimMotorStop());
-
         throwerLowerSimple.whenPressed(new SimpleLowerCommand());
         throwerLowerSimple.whenReleased(new AimMotorStop());
 
@@ -104,10 +97,8 @@ public class OI {
         
         //targeting.whileHeld(new CenterRobotCommand());
         //targeting.whenReleased(new DriveWithJoystick());
-        moveToAngle.whileHeld(new MoveToAngleCommand(1.0, 40.0));
-        moveToAngle.whenReleased(new AimMotorStop());
 
-        potentiometerTest.whileHeld(new PotentiometerTestCommand());
+        potentiometerTest.whenPressed(new PotentiometerTestCommand());
     }
 
     public static OI getInstance() {
