@@ -28,7 +28,7 @@ import org.first.team342.commands.elevator.ElevatorRaiseCommand;
 import org.first.team342.commands.elevator.ElevatorStopCommand;
 import org.first.team342.commands.thrower.*;
 
-public class OI {
+public class OI{
 
     private Controller driveController;
     private static final OI INSTANCE = new OI();
@@ -36,10 +36,10 @@ public class OI {
     private OI() {
         driveController = new Controller(RobotMap.JOYSTICK_DRIVE_CONTROL);
 
-        JoystickButton elevatorRaise = new JoystickButton(driveController, 8);
-        JoystickButton elevatorLower = new JoystickButton(driveController, 7);
+        JoystickButton elevatorRaise = new JoystickButton(driveController, 10);
+        JoystickButton elevatorLower = new JoystickButton(driveController, 9);
         JoystickButton conveyorToggleOn = new JoystickButton(driveController, 3);
-        JoystickButton conveyorRev = new JoystickButton(driveController, 1);
+        JoystickButton conveyorRev = new JoystickButton(driveController, 2);
 //        JoystickButton center = new JoystickButton(driveController, 10);
 //        JoystickButton flash = new JoystickButton(driveController, 4);
 //        JoystickButton redOn = new JoystickButton(driveController, 5);
@@ -47,18 +47,18 @@ public class OI {
 //        JoystickButton bothOn = new JoystickButton(driveController, 7);
         JoystickButton simpleShootForward = new JoystickButton(driveController, 6);
         JoystickButton throwerRaiseSimple = new JoystickButton(driveController, 4);
-        JoystickButton throwerLowerSimple = new JoystickButton(driveController, 2);
+        JoystickButton throwerLowerSimple = new JoystickButton(driveController, 1);
         JoystickButton pushDisc = new JoystickButton(driveController, 5);
-        JoystickButton moveToAngle = new JoystickButton(driveController, 9);
+        JoystickButton moveToAngle = new JoystickButton(driveController, 7);
 //        JoystickButton potentiometerTest = new JoystickButton(driveController, 10);
         
-        JoystickButton potentiometerTest = new JoystickButton(driveController, 10);
+        JoystickButton potentiometerTest = new JoystickButton(driveController, 8);
 
         elevatorRaise.whileHeld(new ElevatorRaiseCommand());
         elevatorRaise.whenReleased(new ElevatorStopCommand());
 
         elevatorLower.whileHeld(new ElevatorLowerCommand());
-        elevatorLower.whenReleased(new PrintCommand("OI works"));
+        elevatorLower.whenReleased(new ElevatorStopCommand());
 
         conveyorToggleOn.whenPressed(new ConveyorOnCommand());
 
@@ -85,8 +85,8 @@ public class OI {
         throwerLowerSimple.whenPressed(new SimpleLowerCommand());
         throwerLowerSimple.whenReleased(new AimMotorStop());
 
-        pushDisc.whenPressed(new pushCommand());
-        pushDisc.whenReleased(new PushStopCommand());
+        pushDisc.whileHeld(new PushLimitSwitchCommand());
+        pushDisc.whenReleased(new PushUntilReturnCommand());
         
         moveToAngle.whileHeld(new MoveToAngleCommand(1.0, 40.0));
         moveToAngle.whenReleased(new AimMotorStop());
