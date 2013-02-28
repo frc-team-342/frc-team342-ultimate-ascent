@@ -11,12 +11,12 @@ import org.first.team342.subsystems.Conveyor;
  *
  * @author FIRST Team 342
  */
-public class ConveyorReverseCommand extends CommandBase {
-    private Conveyor conveyor = Conveyor.getInstance();
+public class ConveyorOffCommand extends CommandBase {
+    private Conveyor conveyor;
     
-    public ConveyorReverseCommand() {
-        this.conveyor = conveyor.getInstance();
-        requires(conveyor);
+    public ConveyorOffCommand() {
+        this.conveyor =  conveyor.getInstance();
+        requires(this.conveyor);
     }
 
     // Called just before this Command runs the first time
@@ -25,7 +25,7 @@ public class ConveyorReverseCommand extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        conveyor.conveyorReverse();
+        conveyor.conveyorOff();
     }
 
     // Make this return true when this Command no longer needs to run execute()

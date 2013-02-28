@@ -53,8 +53,8 @@ public class RobotMap {
     public static final double POTENTIOMETER_UNCERTAINTY = 1.0;
     public static final int DIO_CHANNEL_THROWER_TOP = 11;
     public static final int DIO_CHANNEL_THROWER_BOTTOM = 12;
-    public static final int DIO_CHANNEL_FIRE = 13; //should be 9
-    public static final int DIO_CHANNEL_FIRE_BACK = 14; //should be 10
+    public static final int DIO_CHANNEL_FIRE = 9; //should be 9
+    public static final int DIO_CHANNEL_FIRE_BACK = 10; //should be 10
     public static final int ANALOG_CHANNEL_POTENTIOMETER = 3;
     //thrower motors
     public static final int CAN_DEVICE_THROWER_FRONT = 5;
@@ -70,8 +70,8 @@ public class RobotMap {
     public static final int PWM_CHANNEL_CONVEYOR_PICKUP = 6;
     //elevator 
     public static final int PWM_CHANNEL_ELEVATOR = 8;
-    public static final int DIO_CHANNEL_ELEVATOR_TOP = 9; //should be 13
-    public static final int DIO_CHANNEL_ELEVATOR_BOTTOM = 10; //should be 14
+    public static final int DIO_CHANNEL_ELEVATOR_TOP = 13; //should be 13
+    public static final int DIO_CHANNEL_ELEVATOR_BOTTOM = 14; //should be 14
     
     //LED color lights
     public static final int LIGHT_RED = 4;

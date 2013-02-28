@@ -6,14 +6,14 @@ package org.first.team342.commands.drive;
 
 import org.first.team342.commands.CommandBase;
 import org.first.team342.abstractions.DriveBase;
-import org.first.team342.subsystems.DriveCAN;
+import org.first.team342.subsystems.DrivePWM;
 
 /**
  *
  * @author Charlie
  */
 public class DriveForward extends CommandBase {
-    DriveBase drive = DriveCAN.getInstance();
+    DriveBase drive = DrivePWM.getInstance();
     double speed;
     double distance;
     

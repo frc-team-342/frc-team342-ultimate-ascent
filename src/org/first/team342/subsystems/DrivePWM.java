@@ -65,11 +65,6 @@ public class DrivePWM extends DriveBase {
 
     public void driveWithJoystick(Controller joystick) {
         this.robotDrive.tankDrive(joystick.getLeftY() * -1, joystick.getRightY() * -1);
-        try {
-            System.out.println("PWMMode = " + SmartDashboard.getBoolean("PWMMode"));
-        } catch (TableKeyNotDefinedException ex) {
-            System.out.println("No PWMMode value");
-        }
     }
     /*
      * drive with speed governing

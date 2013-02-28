@@ -23,13 +23,13 @@ import org.first.team342.Controller;
 import org.first.team342.OI;
 import org.first.team342.abstractions.DriveBase;
 import org.first.team342.commands.CommandBase;
-import org.first.team342.subsystems.DriveCAN;
+import org.first.team342.subsystems.DrivePWM;
 
 /*
  * @author FIRST Team 342
  */
 public class DriveWithJoystick extends CommandBase {
-    private DriveBase drive = DriveCAN.getInstance();
+    private DriveBase drive = DrivePWM.getInstance();
     private Controller joystick;
     
     public DriveWithJoystick() {

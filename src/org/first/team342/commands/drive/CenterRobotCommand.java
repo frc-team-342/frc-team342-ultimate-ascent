@@ -25,7 +25,7 @@ import org.first.team342.RobotMap;
 import org.first.team342.RobotUtilities;
 import org.first.team342.abstractions.DriveBase;
 import org.first.team342.commands.CommandBase;
-import org.first.team342.subsystems.DriveCAN;
+import org.first.team342.subsystems.DrivePWM;
 
 /**
  *
@@ -34,7 +34,7 @@ import org.first.team342.subsystems.DriveCAN;
 public class CenterRobotCommand extends CommandBase {
     private int lastPosition;
     private Timer time;
-    private DriveBase drive = DriveCAN.getInstance();
+    private DriveBase drive = DrivePWM.getInstance();
     private DriverStation station;
     
     public CenterRobotCommand() {

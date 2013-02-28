@@ -43,6 +43,7 @@ public class ShootOnly extends CommandGroup {
         addSequential(new PushLimitSwitchCommand());
         addSequential(new PrintCommand("[Auto] After Push, before delay"));
         addSequential(new WaitCommand(timeout));
+        //TODO: Update to reflect new push changes
         addSequential(new PrintCommand("[Auto] After Delay, before off"));
         addSequential(new ThrowerOffCommand());
         addParallel(new PushStopCommand());

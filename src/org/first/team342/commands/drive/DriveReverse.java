@@ -7,14 +7,14 @@ package org.first.team342.commands.drive;
 import org.first.team342.commands.CommandBase;
 import edu.wpi.first.wpilibj.Timer;
 import org.first.team342.abstractions.DriveBase;
-import org.first.team342.subsystems.DriveCAN;
+import org.first.team342.subsystems.DrivePWM;
 
 /**
  *
  * @author Charlie
  */
 public class DriveReverse extends CommandBase {
-    DriveBase drive = DriveCAN.getInstance();
+    DriveBase drive = DrivePWM.getInstance();
     Timer timer;
     double speed;
     double distance;

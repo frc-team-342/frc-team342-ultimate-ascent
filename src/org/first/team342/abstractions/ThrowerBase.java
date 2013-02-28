@@ -40,7 +40,7 @@ public abstract class ThrowerBase extends Subsystem implements Thrower {
     protected DigitalInput pushLimitSwitchBack;
     protected Timer timer;
     protected DriverStation driver;
-    public boolean pushDirectionIsForward;
+    public boolean pushDirectionIsForward = true;
  
     protected ThrowerBase() {
         super();
@@ -184,11 +184,11 @@ public abstract class ThrowerBase extends Subsystem implements Thrower {
         if (!pushLimitSwitchFront.get()) {
             pushMotor.set(-speed);
             pushDirectionIsForward = false;
-            System.out.println("[PUSH] Held, front switch, speed " + -speed + ", direction " + pushDirectionIsForward);
+            System.out.println("[PUSH] Held, front switch " + pushLimitSwitchFront.get() + ", speed " + -speed + ", direction " + pushDirectionIsForward);
         } else if (!pushLimitSwitchBack.get()) {
             pushMotor.set(speed);
             pushDirectionIsForward = true;
-            System.out.println("[PUSH] Held, back switch, speed " + speed + ", direction " + pushDirectionIsForward);
+            System.out.println("[PUSH] Held, back switch " + pushLimitSwitchBack.get() + ", speed " + speed + ", direction " + pushDirectionIsForward);
         } else {
             if (pushDirectionIsForward) {
                 pushMotor.set(speed);
@@ -204,11 +204,11 @@ public abstract class ThrowerBase extends Subsystem implements Thrower {
         if (!pushLimitSwitchFront.get()) {
             pushMotor.set(-speed);
             pushDirectionIsForward = false;
-            System.out.println("[PUSH] Released, front switch, speed " + -speed + ", direction " + pushDirectionIsForward);
+            System.out.println("[PUSH] Released, front switch " + pushLimitSwitchFront.get() + ", speed " + -speed + ", direction " + pushDirectionIsForward);
         } else if (!pushLimitSwitchBack.get()) {
             pushMotor.set(0.0);
             pushDirectionIsForward = true;
-            System.out.println("[PUSH] Released, back switch, speed " + 0.0 + ", direction " + pushDirectionIsForward);
+            System.out.println("[PUSH] Released, back switch " + pushLimitSwitchBack.get() + ", speed " + 0.0 + ", direction " + pushDirectionIsForward);
         } else {
             if (pushDirectionIsForward) {
                 pushMotor.set(speed);

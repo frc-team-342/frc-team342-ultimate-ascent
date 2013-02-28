@@ -11,26 +11,34 @@ import org.first.team342.subsystems.Conveyor;
  *
  * @author FIRST Team 342
  */
-public class ConveyorReverseCommand extends CommandBase {
-    private Conveyor conveyor = Conveyor.getInstance();
+public class ConveyorToggleCommand extends CommandBase {
+    Conveyor conveyor = Conveyor.getInstance();
     
-    public ConveyorReverseCommand() {
-        this.conveyor = conveyor.getInstance();
+    private boolean conveyorStatus;
+    
+    public void ConveyorToggleCommand() {
+        this.conveyor = Conveyor.getInstance();
         requires(conveyor);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        System.out.println("Toggle Conveyor Initialize");
+        this.conveyorStatus = this.conveyor.isConveyorOn();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        conveyor.conveyorReverse();
+        if (this.conveyorStatus) {
+            this.conveyor.conveyorOff();
+        } else {
+            this.conveyor.conveyorOn();
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true

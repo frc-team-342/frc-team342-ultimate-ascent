@@ -20,8 +20,9 @@
 package org.first.team342;
 
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import org.first.team342.commands.conveyor.ConeyorToggleCommand;
+import org.first.team342.commands.conveyor.ConveyorOffCommand;
 import org.first.team342.commands.conveyor.ConveyorReverseCommand;
+import org.first.team342.commands.conveyor.ConveyorToggleCommand;
 import org.first.team342.commands.elevator.ElevatorLowerCommand;
 import org.first.team342.commands.elevator.ElevatorRaiseCommand;
 import org.first.team342.commands.elevator.ElevatorStopCommand;
@@ -39,17 +40,12 @@ public class OI{
         JoystickButton elevatorLower = new JoystickButton(driveController, 9);
         JoystickButton conveyorToggleOn = new JoystickButton(driveController, 3);
         JoystickButton conveyorRev = new JoystickButton(driveController, 2);
-//        JoystickButton center = new JoystickButton(driveController, 10);
-//        JoystickButton flash = new JoystickButton(driveController, 4);
-//        JoystickButton redOn = new JoystickButton(driveController, 5);
-//        JoystickButton blueOn = new JoystickButton(driveController, 6);
-//        JoystickButton bothOn = new JoystickButton(driveController, 7);
+        
         JoystickButton simpleShootForward = new JoystickButton(driveController, 6);
         JoystickButton throwerRaiseSimple = new JoystickButton(driveController, 4);
         JoystickButton throwerLowerSimple = new JoystickButton(driveController, 1);
         JoystickButton pushDisc = new JoystickButton(driveController, 5);
         JoystickButton moveToAngle = new JoystickButton(driveController, 7);
-//        JoystickButton potentiometerTest = new JoystickButton(driveController, 10);
         
         JoystickButton potentiometerTest = new JoystickButton(driveController, 8);
 
@@ -59,21 +55,10 @@ public class OI{
         elevatorLower.whileHeld(new ElevatorLowerCommand());
         elevatorLower.whenReleased(new ElevatorStopCommand());
 
-        conveyorToggleOn.whenPressed(new ConeyorToggleCommand());
+        conveyorToggleOn.whenPressed(new ConveyorToggleCommand());
 
-        conveyorRev.whenPressed(new ConveyorReverseCommand());
-
-//        center.whileHeld( new CenterRobotCommand());
-//        center.whenReleased(new DriveWithJoystick());
-//        
-//        flash.whileHeld(new FlashAlternatingCommand());
-//        flash.whenReleased(new BothLightsOffCommand());
-//        
-//        redOn.whenPressed(new RedLightOnCommand());
-//        redOn.whenReleased(new BothLightsOffCommand());
-//        
-//        blueOn.whenPressed(new BlueLightOnCommand());
-//        blueOn.whenReleased(new BothLightsOffCommand());
+        conveyorRev.whileHeld(new ConveyorReverseCommand());
+        conveyorRev.whenReleased(new ConveyorOffCommand());
         
         simpleShootForward.whenPressed(new SimpleShootForwardCommand());
         simpleShootForward.whenReleased(new ThrowerOffCommand());
@@ -84,18 +69,13 @@ public class OI{
         throwerLowerSimple.whenPressed(new SimpleLowerCommand());
         throwerLowerSimple.whenReleased(new AimMotorStop());
 
+        pushDisc.whenPressed(new ShootCommand());
+        
         pushDisc.whileHeld(new PushLimitSwitchCommand());
         pushDisc.whenReleased(new PushUntilReturnCommand());
         
         moveToAngle.whileHeld(new MoveToAngleCommand(1.0, 30.0));
         moveToAngle.whenReleased(new AimMotorStop());
-        
-//        potentiometerTest.whenPressed(new RedLightOnCommand());
-//        potentiometerTest.whenReleased(new BothLightsOffCommand());
-        //JoystickButton targeting = new JoystickButton(driveController, 4);
-        
-        //targeting.whileHeld(new CenterRobotCommand());
-        //targeting.whenReleased(new DriveWithJoystick());
 
         potentiometerTest.whenPressed(new PotentiometerTestCommand());
     }

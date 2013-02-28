@@ -36,7 +36,7 @@ import org.first.team342.commands.drive.DriveWithJoystick;
  */
 public class DriveCAN extends DriveBase {
 
-    private static final DriveBase INSTANCE = new DriveCAN();
+//    private static final DriveBase INSTANCE = new DriveCAN();
     private CANJaguar leftFront;
     private CANJaguar rightFront;
     private CANJaguar leftRear;
@@ -92,9 +92,9 @@ public class DriveCAN extends DriveBase {
         }
     }
 
-    public static DriveBase getInstance() {
-        return INSTANCE;
-    }
+//    public static DriveBase getInstance() {
+//        return INSTANCE;
+//    }
 
     protected void initDefaultCommand() {
         this.setDefaultCommand(new DriveWithJoystick());
