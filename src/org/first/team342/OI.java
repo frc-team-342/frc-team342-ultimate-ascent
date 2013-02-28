@@ -20,8 +20,7 @@
 package org.first.team342;
 
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import org.first.team342.commands.PrintCommand;
-import org.first.team342.commands.conveyor.ConveyorOnCommand;
+import org.first.team342.commands.conveyor.ConeyorToggleCommand;
 import org.first.team342.commands.conveyor.ConveyorReverseCommand;
 import org.first.team342.commands.elevator.ElevatorLowerCommand;
 import org.first.team342.commands.elevator.ElevatorRaiseCommand;
@@ -60,7 +59,7 @@ public class OI{
         elevatorLower.whileHeld(new ElevatorLowerCommand());
         elevatorLower.whenReleased(new ElevatorStopCommand());
 
-        conveyorToggleOn.whenPressed(new ConveyorOnCommand());
+        conveyorToggleOn.whenPressed(new ConeyorToggleCommand());
 
         conveyorRev.whenPressed(new ConveyorReverseCommand());
 

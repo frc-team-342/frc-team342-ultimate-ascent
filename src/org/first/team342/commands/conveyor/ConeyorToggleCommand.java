@@ -13,7 +13,7 @@ import org.first.team342.subsystems.Conveyor;
  */
 public class ConeyorToggleCommand extends CommandBase {
     private Conveyor conveyor = Conveyor.getInstance();
-    private boolean conveyorStatus;
+    private boolean conveyorStatus = false;
     
     public ConeyorToggleCommand() {
         requires(conveyor);
@@ -23,16 +23,11 @@ public class ConeyorToggleCommand extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        conveyorStatus = conveyor.isConveyorOn();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if(conveyorStatus){
-            conveyor.turnConveyorOff();
-        } else {
-            conveyor.turnConveyorOn();
-        }
+        conveyor.toggleOn();
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -42,6 +37,7 @@ public class ConeyorToggleCommand extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
+        conveyor.updateConveyor();
     }
 
     // Called when another command which requires one or more of the same

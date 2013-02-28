@@ -69,8 +69,7 @@ public class UltimateAscent extends IterativeRobot {
         // schedule the autonomous command (example)
         //autonomousCommand.start();
         this.autonomousCommand = (Command) this.autonomousChooser.getSelected();
-        this.autonomousCommand.start();
-        
+        this.autonomousCommand.start(); 
     }
 
     /**
@@ -90,5 +89,14 @@ public class UltimateAscent extends IterativeRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
         
+    }
+    
+    public void startCompetition() {
+        try {
+        super.startCompetition();
+    
+        } catch (Exception e) {
+            System.out.println("Error at startCompetition: " + e.getMessage());
+        }
     }
 }

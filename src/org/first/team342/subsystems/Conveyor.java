@@ -34,12 +34,16 @@ public class Conveyor extends Subsystem {
     
     // TODO: refactor this variable to "conveyorOn".
     private boolean isOn;
-    
+    private boolean isGoingUp;
     private SpeedController conveyorMotor;
+    private SpeedController pickupMotor;
     
     private Conveyor() {
         this.conveyorMotor = new Victor(RobotMap.PWM_CHANNEL_CONVEYOR);
+        this.pickupMotor = new Victor(RobotMap.PWM_CHANNEL_CONVEYOR_PICKUP);
+        this.pickupMotor.set(1.0);
         isOn = false;
+        isGoingUp = true;
     }
     
     public static Conveyor getInstance() {
@@ -56,25 +60,50 @@ public class Conveyor extends Subsystem {
 //        }
 //    }
     
-    
-    public void turnConveyorOff() {
-        conveyorMotor.set(0.0);
-        this.isOn = false;
-        SmartDashboard.putBoolean("Conveyor", isOn);
+    public void updateConveyor(){
+        if (this.isOn){
+            if (this.isGoingUp){
+                conveyorMotor.set(1.0);
+            } else {
+                conveyorMotor.set(-1.0);
+            }
+        }else {
+            conveyorMotor.set(0.0);
+        }
     }
     
-    public void turnConveyorOn() {
-        conveyorMotor.set(-1.0);
-        this.isOn = true;
-        SmartDashboard.putBoolean("Conveyor", isOn);
+    public void toggleOn(){
+        this.isOn = !this.isOn;
     }
-    public void reverseConveyor() {
-        conveyorMotor.set(1.0);
-        SmartDashboard.putBoolean("Conveyor", false);
+    
+    public void toggleDirection(){
+        this.isGoingUp = !this.isGoingUp;
     }
+//    public void turnConveyorOff() {
+//        conveyorMotor.set(0.0);
+//        this.isOn = false;
+//        SmartDashboard.putBoolean("Conveyor", isOn);
+//    }
+//    
+//    public void turnConveyorOn() {
+//        conveyorMotor.set(-1.0);
+//        this.isOn = true;
+//        this.isGoingUp = true;
+//        SmartDashboard.putBoolean("Conveyor", isOn);
+//    }
+//    public void reverseConveyor() {
+//        conveyorMotor.set(1.0);
+//        this.isOn = true;
+//        this.isGoingUp = false;
+//        SmartDashboard.putBoolean("Conveyor Up ", isGoingUp);
+//    }
 
     public boolean isConveyorOn() {
         return this.isOn;
+    }
+    
+    public boolean isConveyorGoingUp(){
+        return this.isGoingUp;
     }
     
     public void initDefaultCommand() {

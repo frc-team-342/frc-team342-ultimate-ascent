@@ -67,6 +67,7 @@ public class RobotMap {
     public static final int ANALOG_CHANNEL_GYRO = 1;
     //conveyor
     public static final int PWM_CHANNEL_CONVEYOR = 7;
+    public static final int PWM_CHANNEL_CONVEYOR_PICKUP = 6;
     //elevator 
     public static final int PWM_CHANNEL_ELEVATOR = 8;
     public static final int DIO_CHANNEL_ELEVATOR_TOP = 9; //should be 13

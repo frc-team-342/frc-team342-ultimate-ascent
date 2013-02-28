@@ -53,7 +53,9 @@ public class DriveCAN extends DriveBase {
             this.leftRear = RobotUtilities.initializeCANJaguar(RobotMap.CAN_DEVICE_LEFT_REAR_DRIVE_MOTOR);
             this.rightRear = RobotUtilities.initializeCANJaguar(RobotMap.CAN_DEVICE_RIGHT_REAR_DRIVE_MOTOR);
             this.robotDrive = new RobotDrive(leftFront, leftRear, rightFront, rightRear);
+
             this.robotDrive.setSafetyEnabled(false);
+            
             this.leftFront.setPositionReference(CANJaguar.PositionReference.kQuadEncoder);
             this.rightFront.setPositionReference(CANJaguar.PositionReference.kQuadEncoder);
             this.leftRear.setPositionReference(CANJaguar.PositionReference.kQuadEncoder);

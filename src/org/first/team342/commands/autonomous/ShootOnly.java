@@ -8,12 +8,10 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import org.first.team342.commands.PrintCommand;
-import org.first.team342.commands.elevator.ElevatorRaiseCommand;
-import org.first.team342.commands.elevator.ElevatorStopCommand;
+import org.first.team342.commands.thrower.PushLimitSwitchCommand;
 import org.first.team342.commands.thrower.PushStopCommand;
 import org.first.team342.commands.thrower.SimpleShootForwardCommand;
 import org.first.team342.commands.thrower.ThrowerOffCommand;
-import org.first.team342.commands.thrower.pushCommand;
 
 /**
  *
@@ -42,7 +40,7 @@ public class ShootOnly extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
         addParallel(new SimpleShootForwardCommand());
-        addSequential(new pushCommand());
+        addSequential(new PushLimitSwitchCommand());
         addSequential(new PrintCommand("[Auto] After Push, before delay"));
         addSequential(new WaitCommand(timeout));
         addSequential(new PrintCommand("[Auto] After Delay, before off"));
