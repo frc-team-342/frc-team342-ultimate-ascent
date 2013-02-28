@@ -33,7 +33,7 @@ import org.first.team342.subsystems.DriveCAN;
  */
 public class CenterRobotCommand extends CommandBase {
     private int lastPosition;
-    private Timer time;;
+    private Timer time;
     private DriveBase drive = DriveCAN.getInstance();
     private DriverStation station;
     

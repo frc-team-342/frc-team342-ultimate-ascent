@@ -88,7 +88,7 @@ public class OI{
         pushDisc.whileHeld(new PushLimitSwitchCommand());
         pushDisc.whenReleased(new PushUntilReturnCommand());
         
-        moveToAngle.whileHeld(new MoveToAngleCommand(1.0, 40.0));
+        moveToAngle.whileHeld(new MoveToAngleCommand(1.0, 30.0));
         moveToAngle.whenReleased(new AimMotorStop());
         
 //        potentiometerTest.whenPressed(new RedLightOnCommand());

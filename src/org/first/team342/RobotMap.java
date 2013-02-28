@@ -36,6 +36,8 @@ public class RobotMap {
     //drive constants
     public static final double DRIVE_CENTERING_CONASTANT_PIXEL = 10.0;
     public static final double DRIVE_CENTERING_CONASTANT_DELTA = 20.0;
+    public static final int AIM_CENTER_TARGET_PIXEL_VERTICAL = 10;
+    public static final int AIM_CENTER_TARGET_PIXEL_HORIZONTAL = 0;
     //robot CAN dirve motors
     public static final int CAN_DEVICE_RIGHT_FRONT_DRIVE_MOTOR = 1;
     public static final int CAN_DEVICE_LEFT_FRONT_DRIVE_MOTOR = 2;

@@ -41,7 +41,7 @@ public abstract class ThrowerBase extends Subsystem implements Thrower {
     protected Timer timer;
     protected DriverStation driver;
     public boolean pushDirectionIsForward;
-
+ 
     protected ThrowerBase() {
         super();
         this.targetAngle = 0.0;
@@ -90,6 +90,29 @@ public abstract class ThrowerBase extends Subsystem implements Thrower {
             this.aim.set(speed);
         } else if (this.convertAngle() - uncertainty
                 > angle) {
+            System.out.println("[DEBUG] moveToAngle method executed down");
+            this.aim.set(-speed);
+        } else {
+            System.out.println("[DEBUG] moveToAngle method in uncertainty");
+            this.aim.set(0.0);
+        }
+    }
+
+    public void moveToAngleCamera(double speed, int targetPixel, int currentPixel) {
+        System.out.println("[DEBUG] moveToAngle method executed");
+        int uncertainty = 2;
+        if (!this.top.get()) {
+            System.out.println("[DEBUG] moveToAngle method Top Limit Switch Tripped");
+            this.aim.set(0.0);
+        } else if (!this.bottom.get()) {
+            System.out.println("[DEBUG] moveToAngle method Bottom Limit Switch Tripped");
+            this.aim.set(0.0);
+        } else if ( currentPixel + uncertainty 
+                < targetPixel) {
+            System.out.println("[DEBUG] moveToAngle method executed up");
+            this.aim.set(speed);
+        } else if (currentPixel - uncertainty
+                > targetPixel) {
             System.out.println("[DEBUG] moveToAngle method executed down");
             this.aim.set(-speed);
         } else {
@@ -161,7 +184,7 @@ public abstract class ThrowerBase extends Subsystem implements Thrower {
         if (!pushLimitSwitchFront.get()) {
             pushMotor.set(-speed);
             pushDirectionIsForward = false;
-                System.out.println("[PUSH] Held, front switch, speed " + -speed + ", direction " + pushDirectionIsForward);
+            System.out.println("[PUSH] Held, front switch, speed " + -speed + ", direction " + pushDirectionIsForward);
         } else if (!pushLimitSwitchBack.get()) {
             pushMotor.set(speed);
             pushDirectionIsForward = true;
@@ -181,7 +204,7 @@ public abstract class ThrowerBase extends Subsystem implements Thrower {
         if (!pushLimitSwitchFront.get()) {
             pushMotor.set(-speed);
             pushDirectionIsForward = false;
-                System.out.println("[PUSH] Released, front switch, speed " + -speed + ", direction " + pushDirectionIsForward);
+            System.out.println("[PUSH] Released, front switch, speed " + -speed + ", direction " + pushDirectionIsForward);
         } else if (!pushLimitSwitchBack.get()) {
             pushMotor.set(0.0);
             pushDirectionIsForward = true;
