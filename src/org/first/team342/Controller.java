@@ -43,4 +43,8 @@ public class Controller extends Joystick{
     public double getRightX(){
         return this.getZ();
     }
+    
+    public double getBackTrigger(){
+        return this.getRawAxis(4);
+    }
 }
