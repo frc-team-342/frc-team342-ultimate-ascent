@@ -22,6 +22,7 @@ package org.first.team342.subsystems;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import org.first.team342.Controller;
 import org.first.team342.RobotMap;
 
 /**
@@ -85,5 +86,15 @@ public class Elevator extends Subsystem {
     
     public boolean getSwitchBottom(){
         return this.bottom.get();
+    }
+    
+    public void elevateWithJoystick(Controller joystick) {
+        if (joystick.getBackTrigger() > .2){
+            this.raise(1.0);
+        } else if(joystick.getBackTrigger() < .2){
+            this.lower(1.0);
+        } else {
+            this.stop();
+        }
     }
 }

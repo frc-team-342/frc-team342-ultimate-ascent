@@ -36,9 +36,11 @@ public abstract class ThrowerBase extends Subsystem implements Thrower {
     private DigitalInput bottom;
     protected Victor pushMotor;
     protected AnalogChannel potentiometer;
-    protected DigitalInput pushLimitSwitch;
+    protected DigitalInput pushLimitSwitchFront;
+    protected DigitalInput pushLimitSwitchBack;
     protected Timer timer;
     protected DriverStation driver;
+    public boolean pushDirectionIsForward;
 
     protected ThrowerBase() {
         super();
@@ -48,7 +50,8 @@ public abstract class ThrowerBase extends Subsystem implements Thrower {
         this.top = new DigitalInput(RobotMap.DIO_CHANNEL_THROWER_TOP);
         this.bottom = new DigitalInput(RobotMap.DIO_CHANNEL_THROWER_BOTTOM);
         this.pushMotor = new Victor(RobotMap.PWM_CHANNEL_FIRE);
-        this.pushLimitSwitch = new DigitalInput(RobotMap.DIO_CHANNEL_FIRE);
+        this.pushLimitSwitchFront = new DigitalInput(RobotMap.DIO_CHANNEL_FIRE);
+        this.pushLimitSwitchBack = new DigitalInput(RobotMap.DIO_CHANNEL_FIRE_BACK);
         this.potentiometer = new AnalogChannel(RobotMap.ANALOG_CHANNEL_POTENTIOMETER);
         this.driver = DriverStation.getInstance();
     }
@@ -76,26 +79,26 @@ public abstract class ThrowerBase extends Subsystem implements Thrower {
         System.out.println("[DEBUG] moveToAngle method executed");
         double uncertainty = 1.0;
         if (!this.top.get()) {
-        System.out.println("[DEBUG] moveToAngle method Top Limit Switch Tripped");
+            System.out.println("[DEBUG] moveToAngle method Top Limit Switch Tripped");
             this.aim.set(0.0);
         } else if (!this.bottom.get()) {
-                    System.out.println("[DEBUG] moveToAngle method Bottom Limit Switch Tripped");
+            System.out.println("[DEBUG] moveToAngle method Bottom Limit Switch Tripped");
             this.aim.set(0.0);
         } else if (this.convertAngle() + uncertainty
                 < angle) {
-                    System.out.println("[DEBUG] moveToAngle method executed up");
+            System.out.println("[DEBUG] moveToAngle method executed up");
             this.aim.set(speed);
         } else if (this.convertAngle() - uncertainty
                 > angle) {
-                    System.out.println("[DEBUG] moveToAngle method executed down");
+            System.out.println("[DEBUG] moveToAngle method executed down");
             this.aim.set(-speed);
         } else {
-                    System.out.println("[DEBUG] moveToAngle method in uncertainty");
+            System.out.println("[DEBUG] moveToAngle method in uncertainty");
             this.aim.set(0.0);
         }
     }
 
-    public void moveToAngleSupporting(double angle){
+    public void moveToAngleSupporting(double angle) {
         double aimOut = (this.driver.getAnalogIn(3) / 10) * (angle - this.convertAngle());
         if (aimOut > 1) {
             aimOut = 1;
@@ -154,23 +157,59 @@ public abstract class ThrowerBase extends Subsystem implements Thrower {
         System.out.println("vex motor running");
     }
 
-    public void push(double value) {
-        if (pushLimitSwitch.get()) {
-            pushMotor.set(value);
+    public void push(double speed) {
+        if (!pushLimitSwitchFront.get()) {
+            pushMotor.set(-speed);
+            pushDirectionIsForward = false;
+                System.out.println("[PUSH] Held, front switch, speed " + -speed + ", direction " + pushDirectionIsForward);
+        } else if (!pushLimitSwitchBack.get()) {
+            pushMotor.set(speed);
+            pushDirectionIsForward = true;
+            System.out.println("[PUSH] Held, back switch, speed " + speed + ", direction " + pushDirectionIsForward);
         } else {
-            pushMotor.set(0.0);
+            if (pushDirectionIsForward) {
+                pushMotor.set(speed);
+                System.out.println("[PUSH] Held, no switch, speed " + speed + ", direction " + pushDirectionIsForward);
+            } else {
+                pushMotor.set(-speed);
+                System.out.println("[PUSH] Held, no switch, speed " + -speed + ", direction " + pushDirectionIsForward);
+            }
         }
     }
 
-    public boolean getSwitch() {
-        return pushLimitSwitch.get();
+    public void pushUntilEnd(double speed) {
+        if (!pushLimitSwitchFront.get()) {
+            pushMotor.set(-speed);
+            pushDirectionIsForward = false;
+                System.out.println("[PUSH] Released, front switch, speed " + -speed + ", direction " + pushDirectionIsForward);
+        } else if (!pushLimitSwitchBack.get()) {
+            pushMotor.set(0.0);
+            pushDirectionIsForward = true;
+            System.out.println("[PUSH] Released, back switch, speed " + 0.0 + ", direction " + pushDirectionIsForward);
+        } else {
+            if (pushDirectionIsForward) {
+                pushMotor.set(speed);
+                System.out.println("[PUSH] Released, no switch, speed " + speed + ", direction " + pushDirectionIsForward);
+            } else {
+                pushMotor.set(-speed);
+                System.out.println("[PUSH] Released, no switch, speed " + -speed + ", direction " + pushDirectionIsForward);
+            }
+        }
     }
-    
-    public boolean getSwitchTop(){
+
+    public boolean getSwitchPushFront() {
+        return pushLimitSwitchFront.get();
+    }
+
+    public boolean getSwitchPushBack() {
+        return pushLimitSwitchBack.get();
+    }
+
+    public boolean getSwitchTop() {
         return this.top.get();
     }
-    
-    public boolean getSwitchBottom(){
+
+    public boolean getSwitchBottom() {
         return this.bottom.get();
     }
 
