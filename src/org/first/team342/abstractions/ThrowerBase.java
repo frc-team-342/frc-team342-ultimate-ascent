@@ -49,9 +49,9 @@ public abstract class ThrowerBase extends Subsystem implements Thrower {
 //        this.gyro = new Gyro(RobotMap.ANALOG_CHANNEL_GYRO);
         this.top = new DigitalInput(RobotMap.DIO_CHANNEL_THROWER_TOP);
         this.bottom = new DigitalInput(RobotMap.DIO_CHANNEL_THROWER_BOTTOM);
-        this.pushMotor = new Victor(RobotMap.PWM_CHANNEL_FIRE);
-        this.pushLimitSwitchFront = new DigitalInput(RobotMap.DIO_CHANNEL_FIRE);
-        this.pushLimitSwitchBack = new DigitalInput(RobotMap.DIO_CHANNEL_FIRE_BACK);
+        //this.pushMotor = new Victor(RobotMap.PWM_CHANNEL_FIRE);
+//        this.pushLimitSwitchFront = new DigitalInput(RobotMap.DIO_CHANNEL_FIRE);
+//        this.pushLimitSwitchBack = new DigitalInput(RobotMap.DIO_CHANNEL_FIRE_BACK);
         this.potentiometer = new AnalogChannel(RobotMap.ANALOG_CHANNEL_POTENTIOMETER);
         this.driver = DriverStation.getInstance();
     }

@@ -51,10 +51,12 @@ public class Pusher extends Subsystem {
             this.stop();
         }
     }
-    
-    public void can
-    
+
     public void stop() {
         this.pusherMotor.set(0.0);
+    }
+    
+    public boolean isBack() {
+        return this.back.get();
     }
 }

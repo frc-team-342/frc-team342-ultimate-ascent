@@ -4,14 +4,13 @@
  */
 package org.first.team342.commands.autonomous;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.command.WaitCommand;
-import org.first.team342.commands.PrintCommand;
-import org.first.team342.commands.thrower.PushLimitSwitchCommand;
 import org.first.team342.commands.thrower.PushStopCommand;
 import org.first.team342.commands.thrower.SimpleShootForwardCommand;
 import org.first.team342.commands.thrower.ThrowerOffCommand;
+import org.first.team342.commands.pusher.PusherTimedForwardCommand;
+import org.first.team342.commands.pusher.PusherReverseCommand;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 
 /**
  *
@@ -19,33 +18,40 @@ import org.first.team342.commands.thrower.ThrowerOffCommand;
  */
 public class ShootOnly extends CommandGroup {
 
-    final long timeout = (long) 10.0;
-    Timer timer;
+    private static final double SHOOTER_TIMEOUT = 10.0;
+    private static final double TIMEOUT = 2.0;
 
     public ShootOnly() {
-        // Add Commands here:
-        // e.g. addSequential(new Command1());
-        //      addSequential(new Command2());
-        // these will run in order.
+      // Spin up Shooter.
+      this.addParallel(new SimpleShootForwardCommand());
+      
+      this.addSequential(new WaitCommand(2.0));
+      
+      // Shoot First.
+      this.addSequential(new PusherTimedForwardCommand(2.0));
+      this.addSequential(new PusherReverseCommand());
+      
+       this.addSequential(new WaitCommand(2.0));
+      
+      // Shoot Second.
+       this.addSequential(new PusherTimedForwardCommand(2.0));
+       this.addSequential(new PusherReverseCommand());
+       
+        this.addSequential(new WaitCommand(2.0));
+        
+       // Shoot Third.
+       this.addSequential(new PusherTimedForwardCommand(2.0));
+       this.addSequential(new PusherReverseCommand());
 
-        // To run multiple commands at the same time,
-        // use addParallel()
-        // e.g. addParallel(new Command1());
-        //      addSequential(new Command2());
-        // Command1 and Command2 will run in parallel.
-
-        // A command group will require all of the subsystems that each member
-        // would require.
-        // e.g. if Command1 requires chassis, and Command2 requires arm,
-        // a CommandGroup containing them would require both the chassis and the
-        // arm.
-        addParallel(new SimpleShootForwardCommand());
-        addSequential(new PushLimitSwitchCommand());
-        addSequential(new PrintCommand("[Auto] After Push, before delay"));
-        addSequential(new WaitCommand(timeout));
-        //TODO: Update to reflect new push changes
-        addSequential(new PrintCommand("[Auto] After Delay, before off"));
-        addSequential(new ThrowerOffCommand());
-        addParallel(new PushStopCommand());
+       // Turn off the shooter.
+       this.addSequential(new ThrowerOffCommand());
+    }
+    
+    protected void initialized() {
+      
+    }
+    
+    public boolean isFinished() {
+      return false;
     }
 }

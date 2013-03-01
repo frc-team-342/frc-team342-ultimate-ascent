@@ -26,6 +26,8 @@ import org.first.team342.commands.conveyor.ConveyorToggleCommand;
 import org.first.team342.commands.elevator.ElevatorLowerCommand;
 import org.first.team342.commands.elevator.ElevatorRaiseCommand;
 import org.first.team342.commands.elevator.ElevatorStopCommand;
+import org.first.team342.commands.pusher.PusherForwardCommand;
+import org.first.team342.commands.pusher.PusherReverseCommand;
 import org.first.team342.commands.thrower.*;
 
 public class OI{
@@ -69,10 +71,10 @@ public class OI{
         throwerLowerSimple.whenPressed(new SimpleLowerCommand());
         throwerLowerSimple.whenReleased(new AimMotorStop());
 
-        pushDisc.whenPressed(new ShootCommand());
+//        pushDisc.whenPressed(new ShootCommand());
         
-        pushDisc.whileHeld(new PushLimitSwitchCommand());
-        pushDisc.whenReleased(new PushUntilReturnCommand());
+        pushDisc.whileHeld(new PusherForwardCommand());
+        pushDisc.whenReleased(new PusherReverseCommand());
         
         moveToAngle.whileHeld(new MoveToAngleCommand(1.0, 30.0));
         moveToAngle.whenReleased(new AimMotorStop());

@@ -2,26 +2,21 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.first.team342.commands.drive;
+package org.first.team342.commands.pusher;
 
-import org.first.team342.abstractions.DriveBase;
 import org.first.team342.commands.CommandBase;
-import org.first.team342.subsystems.DrivePWM;
+import org.first.team342.subsystems.Pusher;
 
 /**
  *
  * @author Charlie
  */
-public class TurnCommand extends CommandBase {
-    private DriveBase drive = DrivePWM.getInstance();
-    double speed;
-    double distance;
+public class PusherReverseCommand extends CommandBase {
     
-    public TurnCommand(double speed, double distance) {
-        this.speed = speed;
-        this.distance = distance;
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+    private Pusher pusher = Pusher.getInstance();
+    
+    public PusherReverseCommand() {
+        requires(this.pusher);
     }
 
     // Called just before this Command runs the first time
@@ -30,16 +25,17 @@ public class TurnCommand extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        this.drive.turn(this.speed, this.distance);
+        this.pusher.reverse();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return this.pusher.isBack();
     }
 
     // Called once after isFinished returns true
     protected void end() {
+        this.pusher.stop();
     }
 
     // Called when another command which requires one or more of the same
